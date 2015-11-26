@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//GameStateManager, handles the state transitions between the various gamestates.
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 

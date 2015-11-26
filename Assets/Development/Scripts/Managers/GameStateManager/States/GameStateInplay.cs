@@ -11,7 +11,7 @@ public class GameStateInplay : GameStateBase
 
     public override void EnterState(Enums.GameStateNames p_prevState)
     {
-
+        Debug.Log("Entered Gameplay state");
     }
 
     public override void UpdateState()
