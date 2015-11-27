@@ -1,4 +1,6 @@
 ﻿//All enums centralized here
+//
+//
 
 using UnityEngine;
 using System.Collections;

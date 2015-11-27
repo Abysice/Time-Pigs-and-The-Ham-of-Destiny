@@ -1,26 +1,34 @@
 ﻿//GameStateManager, handles the state transitions between the various gamestates.
-
+//
+//
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GameStateManager : MonoBehaviour
 {
+    #region Public Variables
+    #endregion
 
-    //Variables
+    #region Protected Variables
+    #endregion
+
+    #region Private Variables
     private Dictionary<Enums.GameStateNames, GameStateBase> m_gameStateDictionary = new Dictionary<Enums.GameStateNames, GameStateBase>();
     private GameStateBase m_currentGameState = null;
     private Enums.GameStateNames m_currentGameStateIndex = Enums.GameStateNames.GS_00_NULL;
     private Enums.GameStateNames m_nextGameStateIndex = Enums.GameStateNames.GS_00_NULL;
-
     private bool m_initialised = false;
+    #endregion
 
-    //Accessors
+    #region Accessors
     public Enums.GameStateNames CurrentState
     {
         get { return m_currentGameStateIndex; }
     }
+    #endregion
 
+    #region Unity Defaults
     // Use this for initialization
     void Start()
     {
@@ -47,7 +55,9 @@ public class GameStateManager : MonoBehaviour
             m_nextGameStateIndex = Enums.GameStateNames.GS_00_NULL;
         }
     }
+    #endregion
 
+    #region Public Methods
     public void Init()
     {
         // Initialise the bookstateDictionary
@@ -73,4 +83,12 @@ public class GameStateManager : MonoBehaviour
 
         m_nextGameStateIndex = nextState;
     }
+    #endregion
+
+    #region Protected Methods
+    #endregion
+
+    #region Private Methods
+    #endregion
+
 }

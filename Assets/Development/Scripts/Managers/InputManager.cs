@@ -1,12 +1,12 @@
-﻿// Command class factory, will contain the command buffer for all game actions and their actions
+﻿// Inputmanager will be responsible for handling all the 
+// touchscreen input junk
 //
-//
+
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class CommandManager : MonoBehaviour
-{
+public class InputManager : MonoBehaviour {
+
 
     #region Public Variables
     #endregion
@@ -41,6 +41,4 @@ public class CommandManager : MonoBehaviour
 
     #region Private Methods
     #endregion
-
-
 }

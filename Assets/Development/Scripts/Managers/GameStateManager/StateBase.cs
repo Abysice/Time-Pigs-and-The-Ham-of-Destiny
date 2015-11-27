@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿//Base class for state machine states
+//
+//
+using UnityEngine;
 using System.Collections;
 
 public class GameStateBase{
