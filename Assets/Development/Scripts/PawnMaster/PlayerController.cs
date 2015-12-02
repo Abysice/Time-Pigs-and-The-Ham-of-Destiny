@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
     //runs every frame
     public void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, m_inp.MouseInWorldCoords, 0.1f);
+        //transform.position = Vector2.Lerp(transform.position, m_inp.MouseInWorldCoords, 0.1f);
     }
     #endregion
 

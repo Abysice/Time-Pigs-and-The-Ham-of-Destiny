@@ -14,26 +14,26 @@ public class LoadManager : MonoBehaviour {
     #endregion
 
     #region Private Variables
-    private GameObject playerObject;
-    private GameObject cameraObject;
-    private Camera cameraComponent;
+    public GameObject playerObject;
+    public GameObject cameraObject;
+    public Camera cameraComponent;
     #endregion
 
     #region Accessors
-    public GameObject PlayerObject
-    {
-        get { return playerObject; }
-    }
+    //public GameObject GetPlayerObject()
+    //{
+    //    return playerObject;
+    //}
 
-    public GameObject CameraObject
-    {
-        get { return cameraObject; }
-    }
+    //public GameObject CameraObject
+    //{
+    //    get { return cameraObject; }
+    //}
     
-    public Camera CameraComponent
-    {
-        get { return cameraComponent; }
-    }
+    //public Camera CameraComponent
+    //{
+    //    get { return cameraComponent; }
+    //}
     #endregion
 
     #region Unity Defaults

@@ -13,8 +13,7 @@ public class GameStateLoading : GameStateBase
     {
         Application.LoadLevel(Managers.GetInstance().GetGameProperties().LevelScene);
         Debug.Log("Entered Loading State");
-        Managers.GetInstance().GetLoadManager().SpawnPlayer();
-        Managers.GetInstance().GetLoadManager().SpawnCamera();
+
     }
 
     public override void UpdateState()
@@ -25,6 +24,7 @@ public class GameStateLoading : GameStateBase
 
     public override void ExitState(Enums.GameStateNames p_nextState)
     {
-
+        Managers.GetInstance().GetLoadManager().SpawnPlayer();
+        Managers.GetInstance().GetLoadManager().SpawnCamera();
     }
 }

@@ -15,7 +15,9 @@ public class InputManager : MonoBehaviour {
     #endregion
 
     #region Private Variable
-    private Vector2 m_MouseClickInWorldCoords;
+    private Vector2 m_MouseClickInWorldCoords = Vector2.zero;
+    private CommandManager m_cmanager;
+    public bool Rewinding = false; //PlaceHolder
     #endregion
 
     #region Accessors
@@ -29,15 +31,33 @@ public class InputManager : MonoBehaviour {
     //initialization
     public void Start()
     {
-
+        m_cmanager = Managers.GetInstance().GetCommandManager();
     }
     //runs every frame
     public void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
         {
-            m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(m_MouseClickInWorldCoords);
+            //PlaceHolder Code
+
+            if(Input.GetMouseButtonDown(0) && !Rewinding)
+            {
+                m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
+            }
+            else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && !Rewinding)
+            {
+                m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
+            }
+
+            if(Input.GetMouseButtonDown(1))
+            {
+                Rewinding = true;
+            }
+            if(Rewinding)
+            {
+                m_cmanager.UndoLastAction();
+            }
         }
     }
     #endregion
