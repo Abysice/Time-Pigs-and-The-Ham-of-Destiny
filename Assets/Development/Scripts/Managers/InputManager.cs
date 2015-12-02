@@ -14,10 +14,15 @@ public class InputManager : MonoBehaviour {
     #region Protected Variables
     #endregion
 
-    #region Private Variables
+    #region Private Variable
+    private Vector2 m_MouseClickInWorldCoords;
     #endregion
 
     #region Accessors
+    public Vector2 MouseInWorldCoords
+    {
+        get { return m_MouseClickInWorldCoords; }
+    }
     #endregion
 
     #region Unity Defaults
@@ -29,7 +34,11 @@ public class InputManager : MonoBehaviour {
     //runs every frame
     public void Update()
     {
-
+        if(Input.GetMouseButtonDown(0))
+        {
+            m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(m_MouseClickInWorldCoords);
+        }
     }
     #endregion
 
