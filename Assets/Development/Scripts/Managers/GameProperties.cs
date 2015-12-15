@@ -22,5 +22,6 @@ public class GameProperties : MonoBehaviour {
 
     public GameObject playerPrefab;
     public GameObject cameraPrefab;
+    public GameObject slidebarPrefab;
 
 }

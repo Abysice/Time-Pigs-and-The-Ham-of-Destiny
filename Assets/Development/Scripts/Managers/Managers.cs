@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour {
     private GameProperties m_gameproperties = null;
     private LoadManager m_loadmanager = null;
     private InputManager m_inputmanager = null;
+    private GUIManager m_guimanager = null;
     #endregion
 
     #region Protected Variables
@@ -53,6 +54,11 @@ public class Managers : MonoBehaviour {
     {
         return m_inputmanager;
     }
+    
+    public GUIManager GetGUIManager()
+    {
+        return m_guimanager;
+    }
 
     #endregion
 
@@ -70,8 +76,9 @@ public class Managers : MonoBehaviour {
         m_commandmanager = gameObject.AddComponent<CommandManager>();
         m_loadmanager = gameObject.AddComponent<LoadManager>();
         m_inputmanager = gameObject.AddComponent<InputManager>();
+        m_guimanager = gameObject.AddComponent<GUIManager>();
         m_gamestatemanager.Init();
-
+        
     }
 
     // Update is called once per frame

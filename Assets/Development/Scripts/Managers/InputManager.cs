@@ -3,6 +3,7 @@
 //
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
@@ -37,10 +38,9 @@ public class InputManager : MonoBehaviour {
     //runs every frame
     public void Update()
     {
-        if(Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
+        if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && !EventSystem.current.IsPointerOverGameObject())
         {
             //PlaceHolder Code
-
             if(Input.GetMouseButtonDown(0) && !Rewinding)
             {
                 m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
