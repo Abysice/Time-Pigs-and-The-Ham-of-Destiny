@@ -7,64 +7,64 @@ using System.Collections;
 
 public class LoadManager : MonoBehaviour {
 
-    #region Public Variables
-    #endregion
+	#region Public Variables
+	#endregion
 
-    #region Protected Variables
-    #endregion
+	#region Protected Variables
+	#endregion
 
-    #region Private Variables
-    public GameObject playerObject;
-    public GameObject cameraObject;
-    public Camera cameraComponent;
-    #endregion
+	#region Private Variables
+	public GameObject playerObject;
+	public GameObject cameraObject;
+	public Camera cameraComponent;
+	#endregion
 
-    #region Accessors
-    //public GameObject GetPlayerObject()
-    //{
-    //    return playerObject;
-    //}
+	#region Accessors
+	//public GameObject GetPlayerObject()
+	//{
+	//    return playerObject;
+	//}
 
-    //public GameObject CameraObject
-    //{
-    //    get { return cameraObject; }
-    //}
-    
-    //public Camera CameraComponent
-    //{
-    //    get { return cameraComponent; }
-    //}
-    #endregion
+	//public GameObject CameraObject
+	//{
+	//    get { return cameraObject; }
+	//}
+	
+	//public Camera CameraComponent
+	//{
+	//    get { return cameraComponent; }
+	//}
+	#endregion
 
-    #region Unity Defaults
-    //initialization
-    public void Start()
-    {
+	#region Unity Defaults
+	//initialization
+	public void Start()
+	{
 
-    }
-    //runs every frame
-    public void Update()
-    {
+	}
+	//runs every frame
+	public void Update()
+	{
 
-    }
-    #endregion
+	}
+	#endregion
 
-    #region Public Methods
-    public void SpawnPlayer()
-    {
-        playerObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().playerPrefab);
-    }
-    
-    public void SpawnCamera()
-    {
-        cameraObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().cameraPrefab);
-        cameraComponent = cameraObject.GetComponent<Camera>();
-    }
-    #endregion
+	#region Public Methods
+	public void SpawnPlayer()
+	{
+		playerObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().playerPrefab);
+	}
+	
+	public void SpawnCamera()
+	{
+		cameraObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().cameraPrefab);
+		cameraComponent = cameraObject.GetComponent<Camera>();
+	}
+	#endregion
 
-    #region Protected Methods
-    #endregion
+	#region Protected Methods
+	#endregion
 
-    #region Private Methods
-    #endregion
+	#region Private Methods
+	#endregion
 }

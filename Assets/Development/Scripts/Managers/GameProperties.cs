@@ -6,22 +6,22 @@ using System.Collections;
 
 public class GameProperties : MonoBehaviour {
 
-    private string m_levelScene = "LEVEL_SCENE";
-    private string m_menuScene = "MAIN_MENU";
+	private string m_levelScene = "LEVEL_SCENE";
+	private string m_menuScene = "MAIN_MENU";
 
 
-    public string LevelScene
-    {
-        get { return m_levelScene; }
-    }
-    public string MenuScene
-    {
-        get { return m_menuScene; }
-    }
+	public string LevelScene
+	{
+		get { return m_levelScene; }
+	}
+	public string MenuScene
+	{
+		get { return m_menuScene; }
+	}
 
 
-    public GameObject playerPrefab;
-    public GameObject cameraPrefab;
-    public GameObject slidebarPrefab;
+	public GameObject playerPrefab;
+	public GameObject cameraPrefab;
+	public GameObject slidebarPrefab;
 
 }

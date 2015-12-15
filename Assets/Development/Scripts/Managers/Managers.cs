@@ -5,97 +5,97 @@ using UnityEngine;
 using System.Collections;
 
 public class Managers : MonoBehaviour {
-    
-    #region Public Variables
-    //Variables
-    private static Managers m_instance = null;
-    private GameStateManager m_gamestatemanager = null;
-    private CommandManager m_commandmanager = null;
-    private GameProperties m_gameproperties = null;
-    private LoadManager m_loadmanager = null;
-    private InputManager m_inputmanager = null;
-    private GUIManager m_guimanager = null;
-    #endregion
+	
+	#region Public Variables
+	//Variables
+	private static Managers m_instance = null;
+	private GameStateManager m_gamestatemanager = null;
+	private CommandManager m_commandmanager = null;
+	private GameProperties m_gameproperties = null;
+	private LoadManager m_loadmanager = null;
+	private InputManager m_inputmanager = null;
+	private GUIManager m_guimanager = null;
+	#endregion
 
-    #region Protected Variables
-    #endregion
+	#region Protected Variables
+	#endregion
 
-    #region Private Variables
-    #endregion
+	#region Private Variables
+	#endregion
 
-    #region Accessors
-    //Accessors
-    public static Managers GetInstance()
-    {
-        return m_instance;
-    }
+	#region Accessors
+	//Accessors
+	public static Managers GetInstance()
+	{
+		return m_instance;
+	}
 
-    public GameStateManager GetGameStateManager()
-    {
-        return m_gamestatemanager;
-    }
+	public GameStateManager GetGameStateManager()
+	{
+		return m_gamestatemanager;
+	}
 
-    public CommandManager GetCommandManager()
-    {
-        return m_commandmanager;
-    }
+	public CommandManager GetCommandManager()
+	{
+		return m_commandmanager;
+	}
 
-    public GameProperties GetGameProperties()
-    {
-        return m_gameproperties;
-    }
-    
-    public LoadManager GetLoadManager()
-    {
-        return m_loadmanager;
-    }
+	public GameProperties GetGameProperties()
+	{
+		return m_gameproperties;
+	}
+	
+	public LoadManager GetLoadManager()
+	{
+		return m_loadmanager;
+	}
 
-    public InputManager GetInputManager()
-    {
-        return m_inputmanager;
-    }
-    
-    public GUIManager GetGUIManager()
-    {
-        return m_guimanager;
-    }
+	public InputManager GetInputManager()
+	{
+		return m_inputmanager;
+	}
+	
+	public GUIManager GetGUIManager()
+	{
+		return m_guimanager;
+	}
 
-    #endregion
+	#endregion
 
-    #region Unity Defaults
+	#region Unity Defaults
 
-    void Awake()
-    {
-        m_instance = this;
-    }
-    // Use this for initialization
-    void Start()
-    {
-        m_gameproperties = m_instance.GetComponent<GameProperties>();
-        m_gamestatemanager = gameObject.AddComponent<GameStateManager>();
-        m_commandmanager = gameObject.AddComponent<CommandManager>();
-        m_loadmanager = gameObject.AddComponent<LoadManager>();
-        m_inputmanager = gameObject.AddComponent<InputManager>();
-        m_guimanager = gameObject.AddComponent<GUIManager>();
-        m_gamestatemanager.Init();
-        
-    }
+	void Awake()
+	{
+		m_instance = this;
+	}
+	// Use this for initialization
+	void Start()
+	{
+		m_gameproperties = m_instance.GetComponent<GameProperties>();
+		m_gamestatemanager = gameObject.AddComponent<GameStateManager>();
+		m_commandmanager = gameObject.AddComponent<CommandManager>();
+		m_loadmanager = gameObject.AddComponent<LoadManager>();
+		m_inputmanager = gameObject.AddComponent<InputManager>();
+		m_guimanager = gameObject.AddComponent<GUIManager>();
+		m_gamestatemanager.Init();
+		
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
 
-    }
+	}
 
-    #endregion
+	#endregion
 
-    #region Public Methods
-    #endregion
+	#region Public Methods
+	#endregion
 
-    #region Protected Methods
-    #endregion
+	#region Protected Methods
+	#endregion
 
-    #region Private Methods
-    #endregion
+	#region Private Methods
+	#endregion
 
 }
