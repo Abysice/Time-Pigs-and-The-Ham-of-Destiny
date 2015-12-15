@@ -15,7 +15,8 @@ public class CommandManager : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private LinkedList<CommandBase> m_CommandBuffer = new LinkedList<CommandBase>();
+    private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>();
+    private LinkedList<CommandBase> m_currentFrame; //reference to the current frame list
     private CommandBase m_activeCommand;
     private InputManager m_inp;
     #endregion
@@ -32,31 +33,46 @@ public class CommandManager : MonoBehaviour
     //runs every frame
     public void Update()
     {
-
+        //Add a new "frame" every frame, Later: once list gets too long, remove oldest frame
+        if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && !m_inp.Rewinding)
+        {
+            //if last frame had nothing happen
+            if(m_currentFrame != null && m_currentFrame.Count == 0)
+            {
+                return; // don't add a new frame
+            }
+            m_commandBuffer.AddLast(new LinkedList<CommandBase>());
+            m_currentFrame = m_commandBuffer.Last.Value;
+        }
     }
     #endregion
 
     #region Public Methods
     public void AddMoveCommand(GameObject p_actor)
     {
-        Debug.Log(m_CommandBuffer.Count);
+        //Debug.Log(m_commandBuffer.Last.Value.Count);
+        //temporary movement code
         Vector2 newpos = Vector2.Lerp(p_actor.transform.position, m_inp.MouseInWorldCoords, MOVE_LERP);
-        m_CommandBuffer.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
-        m_CommandBuffer.First.Value.Execute();
+        m_currentFrame.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
+        m_currentFrame.First.Value.Execute();
 
     }
 
     public void UndoLastAction()
     {
-        //PlaceHolder
-        if (m_CommandBuffer.Count == 0)
+        foreach(CommandBase com in m_currentFrame)
         {
-            //m_inp.Rewinding = false;
+            com.Undo();  
+        }
+        //PlaceHolder - if out of frames
+        m_commandBuffer.RemoveLast();
+        if(m_commandBuffer.Count == 0)
+        {
+            Debug.Log("Done Rewinding");
+            m_inp.Rewinding = false;
             return;
         }
-
-        m_CommandBuffer.First.Value.Undo();
-        m_CommandBuffer.RemoveFirst();
+        m_currentFrame = m_commandBuffer.Last.Value;
     }
     #endregion
 
