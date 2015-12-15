@@ -24,6 +24,10 @@ public class GUIManager : MonoBehaviour {
 	#endregion
 
 	#region Accessors
+	public float ScrollBarValue()
+	{
+		return m_scrollbar.value;
+	}
 	#endregion
 
 	#region Unity Defaults
@@ -42,7 +46,6 @@ public class GUIManager : MonoBehaviour {
 	{
 		if (!m_init)
 			return;
-
 
 	}
 	#endregion

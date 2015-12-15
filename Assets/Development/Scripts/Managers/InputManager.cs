@@ -18,8 +18,7 @@ public class InputManager : MonoBehaviour {
 	#region Private Variable
 	private Vector2 m_MouseClickInWorldCoords = Vector2.zero;
 	private CommandManager m_cmanager;
-	private bool m_moving = false;
-	public bool Rewinding = false; //PlaceHolder
+	public bool m_moving = false;
 	#endregion
 
 	#region Accessors
@@ -38,32 +37,38 @@ public class InputManager : MonoBehaviour {
 	//runs every frame
 	public void Update()
 	{
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && !EventSystem.current.IsPointerOverGameObject())
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
-			//PlaceHolder Code
-			if(Input.GetMouseButtonDown(0) && !Rewinding)
-			{
-				m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
-				m_moving = true;
+			if(!EventSystem.current.IsPointerOverGameObject())
+			{ 
+				//PlaceHolder Code
+				if(Input.GetMouseButtonDown(0))
+				{
+					m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
+					m_moving = true;
+				}
+				else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && m_moving)
+				{
+					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
+				}
+				
+				
 			}
-			else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && !Rewinding && m_moving)
+
+			if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) < 0.1f)
 			{
-				m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
+				m_moving = false;
 			}
+
+			if(Input.GetKey(KeyCode.Z)) //place holder time mover
+			{
+				m_moving = false;
+				m_cmanager.MovetoAction(Managers.GetInstance().GetGUIManager().ScrollBarValue());
+			}
+
+
 		}
-			
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			Debug.Log("Rewinding Now");
-			m_moving = false;
-			Rewinding = true;
-		}
-		if (Rewinding)
-		{
-			m_cmanager.UndoLastAction();
-		}
-		
 	}
 	#endregion
 

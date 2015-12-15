@@ -1,4 +1,4 @@
-﻿// Command class factory, will contain the command buffer for all game actions and their actions
+﻿// Command class manager, will contain the command buffer for all game actions and their actions
 //
 //
 using UnityEngine;
@@ -15,10 +15,10 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>();
-	private LinkedList<CommandBase> m_currentFrame; //reference to the current frame list
-	private CommandBase m_activeCommand;
 	private InputManager m_inp;
+	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
+	private LinkedListNode<LinkedList<CommandBase>> m_currentFrame; //pointer to the current node
+	private int m_currentFrameIndex;
 	#endregion
 
 	#region Accessors
@@ -29,50 +29,94 @@ public class CommandManager : MonoBehaviour
 	public void Start()
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
+		m_currentFrame = m_commandBuffer.First;
+		m_currentFrameIndex = 0;
 	}
 	//runs every frame
 	public void Update()
 	{
 		//Add a new "frame" every frame, Later: once list gets too long, remove oldest frame
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && !m_inp.Rewinding)
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && m_inp.m_moving == false)
 		{
 			//if last frame had nothing happen
-			if(m_currentFrame != null && m_currentFrame.Count == 0)
+			if (m_currentFrame != null && m_currentFrame.Value.Count == 0)
 			{
 				return; // don't add a new frame
 			}
+			Debug.Log("Butts2");
 			m_commandBuffer.AddLast(new LinkedList<CommandBase>());
-			m_currentFrame = m_commandBuffer.Last.Value;
+			m_currentFrame = m_commandBuffer.Last;
+			m_currentFrameIndex++;
 		}
 	}
 	#endregion
 
 	#region Public Methods
+	//add a command to the current frame
 	public void AddMoveCommand(GameObject p_actor)
 	{
-		//Debug.Log(m_commandBuffer.Last.Value.Count);
+		Debug.Log("Butts");
 		//temporary movement code
 		Vector2 newpos = Vector2.Lerp(p_actor.transform.position, m_inp.MouseInWorldCoords, MOVE_LERP);
-		m_currentFrame.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
-		m_currentFrame.First.Value.Execute();
+		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
+		m_currentFrame.Value.First.Value.Execute();//execute the command you just added
 
 	}
 
-	public void UndoLastAction()
+
+	//undo the last frame
+	public void UndoLastFrame()
 	{
-		foreach(CommandBase com in m_currentFrame)
+		//undo the current frame
+		foreach (CommandBase com in m_currentFrame.Value)
 		{
 			com.Undo();  
 		}
-		//PlaceHolder - if out of frames
-		m_commandBuffer.RemoveLast();
-		if(m_commandBuffer.Count == 0)
+		//if out of frames
+		if (m_currentFrame.Previous == null)
 		{
 			Debug.Log("Done Rewinding");
-			m_inp.Rewinding = false;
+			RestartTime();
 			return;
 		}
-		m_currentFrame = m_commandBuffer.Last.Value;
+		m_currentFrame = m_currentFrame.Previous; // move back a frame
+		m_currentFrameIndex--;
+	}
+
+	//Restart time and remove all future nodes
+	public void RestartTime()
+	{
+		while (m_currentFrame.Next != null) //remove future frames
+		{
+			m_commandBuffer.Remove(m_currentFrame.Next);
+		}
+		m_commandBuffer.Remove(m_currentFrame);
+		m_currentFrame = m_commandBuffer.Last;
+		m_currentFrameIndex = (m_commandBuffer.Count - 1);
+	}
+
+	//move to a certain point in the command buffer from 0-1
+	public void MovetoAction(float p_sliderVal)
+	{
+		int l_length = m_commandBuffer.Count;
+		int l_goalIndex = (int)(((float)l_length) * p_sliderVal); // get an integer approximation
+		
+		if(l_goalIndex > m_currentFrameIndex)
+		{
+			// move forward in time
+		}
+		else if (l_goalIndex < m_currentFrameIndex)
+		{
+			Debug.Log("GOAL:" + l_goalIndex + "  Length:" + l_length + " CURRENT FRAME:"+ m_currentFrameIndex);
+			foreach (CommandBase com in m_currentFrame.Value)
+			{
+				com.Undo();
+			}
+			m_currentFrame = m_currentFrame.Previous; // move back a frame
+			m_currentFrameIndex--;
+			
+		}
+		
 	}
 	#endregion
 

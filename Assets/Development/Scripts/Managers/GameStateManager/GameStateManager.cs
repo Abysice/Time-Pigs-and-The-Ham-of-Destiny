@@ -69,7 +69,6 @@ public class GameStateManager : MonoBehaviour
 		//start the state machine
 		ChangeGameState(Enums.GameStateNames.GS_01_MENU); //starts in the menu state
 
-
 		m_initialised = true;
 
 	}
