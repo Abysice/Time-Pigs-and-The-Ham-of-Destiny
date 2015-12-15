@@ -23,7 +23,6 @@ public class Move_Command : CommandBase {
 
     public override void Execute()
     {
-        Debug.Log("Executed");
         m_actor.transform.position = m_endPos;
     }
 

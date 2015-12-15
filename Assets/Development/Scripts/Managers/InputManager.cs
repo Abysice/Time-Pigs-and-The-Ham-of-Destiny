@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour {
     #region Private Variable
     private Vector2 m_MouseClickInWorldCoords = Vector2.zero;
     private CommandManager m_cmanager;
+    private bool m_moving = false;
     public bool Rewinding = false; //PlaceHolder
     #endregion
 
@@ -44,17 +45,20 @@ public class InputManager : MonoBehaviour {
             {
                 m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
+                m_moving = true;
             }
-            else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && !Rewinding)
+            else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && !Rewinding && m_moving)
             {
                 m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
             }
 
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.A))
             {
+                Debug.Log("Rewinding Now");
+                m_moving = false;
                 Rewinding = true;
             }
-            if(Rewinding)
+            if (Rewinding)
             {
                 m_cmanager.UndoLastAction();
             }
