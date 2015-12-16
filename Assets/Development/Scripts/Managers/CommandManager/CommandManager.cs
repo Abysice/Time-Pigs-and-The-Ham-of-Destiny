@@ -56,10 +56,6 @@ public class CommandManager : MonoBehaviour
 	//Restart time and remove all future nodes
 	public void RestartTime()
 	{
-		//if (m_currentFrame == null)
-		//{
-		//	AddNewFrame();
-		//}
 		while (m_currentFrame.Next != null) //remove future frames
 		{
 			m_commandBuffer.Remove(m_currentFrame.Next);
@@ -67,6 +63,7 @@ public class CommandManager : MonoBehaviour
 		m_commandBuffer.Remove(m_currentFrame);
 		m_currentFrame = m_commandBuffer.Last;
 		m_currentFrameIndex = (m_commandBuffer.Count - 1);
+		m_inp.m_timeFlowing = true;
 	}
 
 	//move to a certain point in the command buffer from 0-1

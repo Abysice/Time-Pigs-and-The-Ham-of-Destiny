@@ -51,7 +51,6 @@ public class InputManager : MonoBehaviour {
 					m_cmanager.AddNewFrame();
 					m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
-					m_timeFlowing = true;
 				}
 				else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && m_timeFlowing)
 				{
@@ -68,8 +67,6 @@ public class InputManager : MonoBehaviour {
 					m_guimanager.LerpSliderTowards(Input.mousePosition.x / Screen.width);
 				}
 			}
-			
-
 		}
 	}
 	#endregion
