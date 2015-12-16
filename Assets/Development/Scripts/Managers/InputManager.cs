@@ -60,11 +60,11 @@ public class InputManager : MonoBehaviour {
 			}
 			else //is over the GUI
 			{
-				if (Input.GetMouseButtonDown(0))
+				if (Input.GetMouseButton(0))
 				{
 					//start lerping towards the slider value
 					m_timeFlowing = false;
-					m_guimanager.LerpSliderTowards(Input.mousePosition.x / Screen.width);
+					m_guimanager.LerpSlider();
 				}
 			}
 		}

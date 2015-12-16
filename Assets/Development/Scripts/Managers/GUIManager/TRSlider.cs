@@ -6,7 +6,7 @@ public class TRSlider : MonoBehaviour {
 
     public Slider TRScroll;
     private Image img;
-    private const float LERP_MULTIPLIER = 0.3f;
+    private const float LERP_MULTIPLIER = 0.1f;
 
 	// Use this for initialization
 	void Start () {

@@ -18,7 +18,8 @@ public class GUIManager : MonoBehaviour {
 	#region Private Variables
 	private GameObject m_canvasObject;
 	private GameObject m_scrollbarObject;
-	private Scrollbar m_scrollbar;
+	private Slider m_scrollbar;
+	private Image m_fill;
 	private CommandManager m_cmanager;
 	private bool m_lerping; //are we lerping?
 	private float m_lerpTarget; //target lerping towards
@@ -53,9 +54,8 @@ public class GUIManager : MonoBehaviour {
 		if(m_lerping)
 		{
 			//lerp the slider to lerp target
-			m_scrollbar.value = Mathf.Lerp(m_scrollbar.value, m_lerpTarget, 0.1f);
-			m_cmanager.MovetoAction(m_scrollbar.value);
-			if (Mathf.Abs(m_scrollbar.value - m_lerpTarget) < 0.05f)
+			m_cmanager.MovetoAction(m_fill.fillAmount);
+			if (Mathf.Abs(m_scrollbar.value - m_fill.fillAmount) < 0.05f)
 			{
 				m_lerping = false;
 			}
@@ -69,7 +69,8 @@ public class GUIManager : MonoBehaviour {
 	{
 		m_canvasObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().slidebarPrefab);
 		m_scrollbarObject = m_canvasObject.transform.GetChild(0).gameObject;
-		m_scrollbar = m_scrollbarObject.GetComponent<Scrollbar>();
+		m_scrollbar = m_scrollbarObject.GetComponent<Slider>();
+		m_fill = m_scrollbar.transform.GetChild(3).GetComponent<Image>();
 		m_init = true;
 	}
 
@@ -80,11 +81,10 @@ public class GUIManager : MonoBehaviour {
 		m_lerping = false;
 	}
 
-	//move slider towards the new position (clamped between 0-1)
-	public void LerpSliderTowards(float p_newVal)
+	//move slider towards the new position
+	public void LerpSlider()
 	{
 		m_lerping = true;
-		m_lerpTarget = Mathf.Clamp(p_newVal, 0.0f, 1.0f);
 	}
 	#endregion
 
