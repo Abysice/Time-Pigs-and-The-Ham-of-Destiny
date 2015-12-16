@@ -1,4 +1,4 @@
-﻿//
+﻿// Keeps the character moving when it should
 //
 //
 
@@ -30,7 +30,12 @@ public class PlayerController : MonoBehaviour {
 	//runs every frame
 	public void Update()
 	{
-		//transform.position = Vector2.Lerp(transform.position, m_inp.MouseInWorldCoords, 0.1f);
+		//stop moving if you're close enuf to goal
+		if (Vector2.Distance(m_inp.MouseInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) < 0.1f)
+		{
+			m_inp.m_timeFlowing = false;
+		}
+
 	}
 	#endregion
 

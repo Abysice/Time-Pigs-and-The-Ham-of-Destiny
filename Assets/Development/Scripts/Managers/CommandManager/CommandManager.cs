@@ -36,7 +36,7 @@ public class CommandManager : MonoBehaviour
 	public void Update()
 	{
 		//Add a new "frame" every frame, Later: once list gets too long, remove oldest frame
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && m_inp.m_moving)
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && m_inp.m_timeFlowing)
 		{
 			AddNewFrame();
 		}
@@ -56,10 +56,10 @@ public class CommandManager : MonoBehaviour
 	//Restart time and remove all future nodes
 	public void RestartTime()
 	{
-		if (m_currentFrame == null)
-		{
-			AddNewFrame();
-		}
+		//if (m_currentFrame == null)
+		//{
+		//	AddNewFrame();
+		//}
 		while (m_currentFrame.Next != null) //remove future frames
 		{
 			m_commandBuffer.Remove(m_currentFrame.Next);
@@ -79,26 +79,29 @@ public class CommandManager : MonoBehaviour
 			Debug.Log("This should never happen");
 			AddNewFrame();
 		}
-		if(l_goalIndex > m_currentFrameIndex)
+		while (l_goalIndex != m_currentFrameIndex)
 		{
-			foreach (CommandBase com in m_currentFrame.Value)
-			{
-				com.Execute();
-			}
-			m_currentFrame = m_currentFrame.Next; // move back a frame
-			m_currentFrameIndex++;
-		}
-		else if (l_goalIndex < m_currentFrameIndex)
-		{
-			if(m_currentFrame.Value.Count > 0)
+			if(l_goalIndex > m_currentFrameIndex)
 			{
 				foreach (CommandBase com in m_currentFrame.Value)
 				{
-					com.Undo();
+					com.Execute();
 				}
+				m_currentFrame = m_currentFrame.Next; // move back a frame
+				m_currentFrameIndex++;
 			}
-			m_currentFrame = m_currentFrame.Previous; // move back a frame
-			m_currentFrameIndex--;
+			else if (l_goalIndex < m_currentFrameIndex)
+			{
+				if(m_currentFrame.Value.Count > 0)
+				{
+					foreach (CommandBase com in m_currentFrame.Value)
+					{
+						com.Undo();
+					}
+				}
+				m_currentFrame = m_currentFrame.Previous; // move back a frame
+				m_currentFrameIndex--;
+			}
 		}
 	}
 

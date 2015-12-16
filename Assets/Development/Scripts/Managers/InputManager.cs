@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour {
 
 
 	#region Public Variables
-	public bool m_moving = false;
+	public bool m_timeFlowing = false;
 	#endregion
 
 	#region Protected Variables
@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour {
 	#region Private Variable
 	private Vector2 m_MouseClickInWorldCoords = Vector2.zero;
 	private CommandManager m_cmanager;
-	
+	private GUIManager m_guimanager;
 	#endregion
 
 	#region Accessors
@@ -34,6 +34,7 @@ public class InputManager : MonoBehaviour {
 	public void Start()
 	{
 		m_cmanager = Managers.GetInstance().GetCommandManager();
+		m_guimanager = Managers.GetInstance().GetGUIManager();
 	}
 	//runs every frame
 	public void Update()
@@ -45,27 +46,30 @@ public class InputManager : MonoBehaviour {
 				//PlaceHolder Code
 				if(Input.GetMouseButtonDown(0))
 				{
+					m_guimanager.ResetScrollBar();
 					m_cmanager.RestartTime();
 					m_cmanager.AddNewFrame();
 					m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
-					m_moving = true;
+					m_timeFlowing = true;
 				}
-				else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && m_moving)
+				else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && m_timeFlowing)
 				{
 					m_cmanager.AddNewFrame();
 					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
 				}
 			}
-			if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) < 0.1f)
+			else //is over the GUI
 			{
-				m_moving = false;
+				if (Input.GetMouseButtonDown(0))
+				{
+					//start lerping towards the slider value
+					m_timeFlowing = false;
+					m_guimanager.LerpSliderTowards(Input.mousePosition.x / Screen.width);
+				}
 			}
-			if(Input.GetKey(KeyCode.Z)) //place holder time mover
-			{
-				m_moving = false;
-				m_cmanager.MovetoAction(Managers.GetInstance().GetGUIManager().ScrollBarValue());
-			}
+			
+
 		}
 	}
 	#endregion
