@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class CommandManager : MonoBehaviour
 {
-	public const float MOVE_LERP = 0.1f;
+	public const float MOVE_SPEED = 0.1f;
 	#region Public Variables
 	#endregion
 
@@ -48,8 +48,10 @@ public class CommandManager : MonoBehaviour
 	public void AddMoveCommand(GameObject p_actor)
 	{
 		//temporary movement code
-		Vector2 newpos = Vector2.Lerp(p_actor.transform.position, m_inp.MouseInWorldCoords, MOVE_LERP);
-		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
+		Vector3 dirvec = ((new Vector3(m_inp.MouseInWorldCoords.x, m_inp.MouseInWorldCoords.y , 0.0f)) - p_actor.transform.position).normalized * MOVE_SPEED;
+		dirvec = p_actor.transform.position + dirvec;
+		//Vector2 newpos = Vector2.Lerp(p_actor.transform.position, m_inp.MouseInWorldCoords, MOVE_SPEED);
+		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, dirvec));
 		m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 	}
 
