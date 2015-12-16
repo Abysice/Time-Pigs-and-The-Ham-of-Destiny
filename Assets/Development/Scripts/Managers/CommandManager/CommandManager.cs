@@ -29,24 +29,16 @@ public class CommandManager : MonoBehaviour
 	public void Start()
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
-		m_currentFrame = m_commandBuffer.First;
+		AddNewFrame();
 		m_currentFrameIndex = 0;
 	}
 	//runs every frame
 	public void Update()
 	{
 		//Add a new "frame" every frame, Later: once list gets too long, remove oldest frame
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && m_inp.m_moving == false)
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY && m_inp.m_moving)
 		{
-			//if last frame had nothing happen
-			if (m_currentFrame != null && m_currentFrame.Value.Count == 0)
-			{
-				return; // don't add a new frame
-			}
-			Debug.Log("Butts2");
-			m_commandBuffer.AddLast(new LinkedList<CommandBase>());
-			m_currentFrame = m_commandBuffer.Last;
-			m_currentFrameIndex++;
+			AddNewFrame();
 		}
 	}
 	#endregion
@@ -55,37 +47,19 @@ public class CommandManager : MonoBehaviour
 	//add a command to the current frame
 	public void AddMoveCommand(GameObject p_actor)
 	{
-		Debug.Log("Butts");
 		//temporary movement code
 		Vector2 newpos = Vector2.Lerp(p_actor.transform.position, m_inp.MouseInWorldCoords, MOVE_LERP);
 		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
-		m_currentFrame.Value.First.Value.Execute();//execute the command you just added
-
-	}
-
-
-	//undo the last frame
-	public void UndoLastFrame()
-	{
-		//undo the current frame
-		foreach (CommandBase com in m_currentFrame.Value)
-		{
-			com.Undo();  
-		}
-		//if out of frames
-		if (m_currentFrame.Previous == null)
-		{
-			Debug.Log("Done Rewinding");
-			RestartTime();
-			return;
-		}
-		m_currentFrame = m_currentFrame.Previous; // move back a frame
-		m_currentFrameIndex--;
+		m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 	}
 
 	//Restart time and remove all future nodes
 	public void RestartTime()
 	{
+		if (m_currentFrame == null)
+		{
+			AddNewFrame();
+		}
 		while (m_currentFrame.Next != null) //remove future frames
 		{
 			m_commandBuffer.Remove(m_currentFrame.Next);
@@ -98,25 +72,47 @@ public class CommandManager : MonoBehaviour
 	//move to a certain point in the command buffer from 0-1
 	public void MovetoAction(float p_sliderVal)
 	{
-		int l_length = m_commandBuffer.Count;
-		int l_goalIndex = (int)(((float)l_length) * p_sliderVal); // get an integer approximation
+		int l_goalIndex = (int)(((float)m_commandBuffer.Count) * p_sliderVal); // get an integer approximation
 		
+		if(m_currentFrame == null) 
+		{
+			Debug.Log("This should never happen");
+			AddNewFrame();
+		}
 		if(l_goalIndex > m_currentFrameIndex)
 		{
-			// move forward in time
+			foreach (CommandBase com in m_currentFrame.Value)
+			{
+				com.Execute();
+			}
+			m_currentFrame = m_currentFrame.Next; // move back a frame
+			m_currentFrameIndex++;
 		}
 		else if (l_goalIndex < m_currentFrameIndex)
 		{
-			Debug.Log("GOAL:" + l_goalIndex + "  Length:" + l_length + " CURRENT FRAME:"+ m_currentFrameIndex);
-			foreach (CommandBase com in m_currentFrame.Value)
+			if(m_currentFrame.Value.Count > 0)
 			{
-				com.Undo();
+				foreach (CommandBase com in m_currentFrame.Value)
+				{
+					com.Undo();
+				}
 			}
 			m_currentFrame = m_currentFrame.Previous; // move back a frame
 			m_currentFrameIndex--;
-			
 		}
-		
+	}
+
+	//Add a new frame to the buffer
+	public void AddNewFrame()
+	{
+		//if last frame had nothing happen
+		if (m_currentFrame != null && m_currentFrame.Value.Count == 0)
+		{
+			return; // don't add a new frame
+		}
+		m_commandBuffer.AddLast(new LinkedList<CommandBase>());
+		m_currentFrame = m_commandBuffer.Last;
+		m_currentFrameIndex++;
 	}
 	#endregion
 
