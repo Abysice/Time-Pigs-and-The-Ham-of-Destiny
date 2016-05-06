@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 
 	#region Private Variables
 	private InputManager m_inp;
+	private CommandManager m_cmanager;
 	#endregion
 
 	#region Accessors
@@ -26,16 +27,24 @@ public class PlayerController : MonoBehaviour {
 	public void Start()
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
+		m_cmanager = Managers.GetInstance().GetCommandManager();
 	}
 	//runs every frame
 	public void Update()
 	{
-		//stop moving if you're close enuf to goal
-		if (Vector2.Distance(m_inp.MouseInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) < 0.1f)
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
-			m_inp.m_timeFlowing = false;
-		}
+			//PlaceHolder Code
+			if (Input.GetMouseButtonDown(0))
+			{
+				m_cmanager.AddMoveCommand(gameObject);
+			}
 
+			if (Input.GetMouseButtonDown(1))
+			{
+				m_cmanager.MoveToPrevious();
+			}
+		}
 	}
 	#endregion
 

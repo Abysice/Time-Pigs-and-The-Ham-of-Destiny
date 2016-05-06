@@ -72,10 +72,10 @@ public class Managers : MonoBehaviour {
 	void Start()
 	{
 		m_gameproperties = m_instance.GetComponent<GameProperties>();
+		m_inputmanager = gameObject.AddComponent<InputManager>();
 		m_gamestatemanager = gameObject.AddComponent<GameStateManager>();
 		m_commandmanager = gameObject.AddComponent<CommandManager>();
 		m_loadmanager = gameObject.AddComponent<LoadManager>();
-		m_inputmanager = gameObject.AddComponent<InputManager>();
 		m_guimanager = gameObject.AddComponent<GUIManager>();
 		m_gamestatemanager.Init();
 		

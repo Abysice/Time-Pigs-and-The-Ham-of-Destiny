@@ -41,32 +41,7 @@ public class InputManager : MonoBehaviour {
 	{
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
-			if(!EventSystem.current.IsPointerOverGameObject())
-			{ 
-				//PlaceHolder Code
-				if(Input.GetMouseButtonDown(0))
-				{
-					m_guimanager.ResetScrollBar();
-					m_cmanager.RestartTime();
-					m_cmanager.AddNewFrame();
-					m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
-				}
-				else if (Vector2.Distance(m_MouseClickInWorldCoords, Managers.GetInstance().GetLoadManager().playerObject.transform.position) > 0.1f && m_timeFlowing)
-				{
-					m_cmanager.AddNewFrame();
-					m_cmanager.AddMoveCommand(Managers.GetInstance().GetLoadManager().playerObject);
-				}
-			}
-			else //is over the GUI
-			{
-				if (Input.GetMouseButton(0))
-				{
-					//start lerping towards the slider value
-					m_timeFlowing = false;
-					m_guimanager.LerpSlider();
-				}
-			}
+			m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		}
 	}
 	#endregion
