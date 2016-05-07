@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour {
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
 			//PlaceHolder Code
-			if (Input.GetMouseButtonDown(0))
+			if (Input.GetMouseButton(0))
 			{
 				m_cmanager.AddMoveCommand(gameObject);
 			}
 
-			if (Input.GetMouseButtonDown(1))
+			if (Input.GetMouseButton(1))
 			{
 				m_cmanager.MoveToPrevious();
 			}
