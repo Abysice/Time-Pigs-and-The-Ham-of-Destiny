@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.Space))
 		{
-			m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position);
+			m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, 0.2f));
 		}
 	}
 	#endregion
