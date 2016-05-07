@@ -45,6 +45,8 @@ public class CommandManager : MonoBehaviour
 		AddNewFrame();
 		m_currentFrameIndex = 0;
 	}
+
+
 	//runs every frame
 	public void Update()
 	{	
@@ -61,6 +63,8 @@ public class CommandManager : MonoBehaviour
 		else
 			m_isRewinding = false;
 
+
+
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
 		{
 			MAGIC_TIMER -= Time.deltaTime;
@@ -71,17 +75,20 @@ public class CommandManager : MonoBehaviour
 			MAGIC_TIMER = MAX_TIMER;
 		}
 
-		//Add a new "frame" every frame, Later: once list gets too long, remove oldest frame
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
-		{
-			//AddNewFrame();
-		}
+
 	}
 
 	//stuff after all the commands have been entered
 	public void LateUpdate()
 	{
-		
+		//runs before every frame
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
+		{
+			if (!m_isRewinding)
+				AddNewFrame();
+			else
+				MoveBackAFrame();
+		}
 	}
 	#endregion
 
@@ -93,29 +100,12 @@ public class CommandManager : MonoBehaviour
 		{
 			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
-			AddNewFrame();
 		}
-		else
-			MoveBackAFrame();
 
 		Debug.Log(m_commandBuffer.Count);
 	}
 
-	//move to a certain point in the command buffer from 0-1
-	//public void MoveForward()
-	//{
-	//	if (m_currentFrame == null)
-	//	{
-	//		Debug.Log("This should never happen");
-	//		AddNewFrame();
-	//	}
-	//	foreach (CommandBase com in m_currentFrame.Value)
-	//	{
-	//		com.Execute();
-	//	}
-	//	m_currentFrame = m_currentFrame.Next; // move back a frame
-	//	m_currentFrameIndex++;
-	//}
+
 	public void MoveBackAFrame()
 	{
 		if (m_currentFrame.Value.Count > 0)
@@ -132,7 +122,6 @@ public class CommandManager : MonoBehaviour
 		}
 
 		Debug.Log(m_commandBuffer.Count);
-
 	}
 
 	//Add a new frame to the buffer
