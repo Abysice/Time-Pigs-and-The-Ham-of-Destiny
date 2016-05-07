@@ -50,10 +50,9 @@ public class CommandManager : MonoBehaviour
 
 	#region Public Methods
 	//add a command to the current frame
-	public void AddMoveCommand(GameObject p_actor, float MOVE_SPEED)
+	public void AddMoveCommand(GameObject p_actor, Vector2 m_destination)
 	{
-		Vector3 newpos = ((new Vector3(m_inp.MouseInWorldCoords.x, m_inp.MouseInWorldCoords.y, 0.0f) - p_actor.transform.position).normalized * MOVE_SPEED) + p_actor.transform.position;
-		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
+		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
 		m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		AddNewFrame();
 		Debug.Log(m_commandBuffer.Count);

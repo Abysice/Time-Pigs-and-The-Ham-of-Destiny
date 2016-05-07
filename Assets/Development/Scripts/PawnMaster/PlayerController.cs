@@ -8,7 +8,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	#region Public Variables
-	public const float MOVE_SPEED = 0.2f;
+	private float MAGIC_TIMER = 0.1f;
+
+	public const float MOVE_SPEED = 0.05f;
 	#endregion
 
 	#region Protected Variables
@@ -17,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 	#region Private Variables
 	private InputManager m_inp;
 	private CommandManager m_cmanager;
+
+	private float m_moveTimer;
 	#endregion
 
 	#region Accessors
@@ -28,22 +32,49 @@ public class PlayerController : MonoBehaviour {
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
 		m_cmanager = Managers.GetInstance().GetCommandManager();
+		m_moveTimer = MAGIC_TIMER;
 	}
 	//runs every frame
 	public void Update()
 	{
+
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
-			//PlaceHolder Code
-			if (Input.GetMouseButtonDown(0))
+			if (m_moveTimer > 0.0f) // do nothing this frame
 			{
-				m_cmanager.AddMoveCommand(gameObject, MOVE_SPEED);
+				m_moveTimer -= Time.deltaTime;
+				return;
+			}
+			else if (m_moveTimer < 0.0f)
+			{
+				m_moveTimer = MAGIC_TIMER;
 			}
 
-			if (Input.GetMouseButtonDown(1))
+			//PlaceHolder Code
+			Vector3 m_inputVec = Vector3.zero;
+			if (Input.GetKey(KeyCode.W))
 			{
-				m_cmanager.MoveToPrevious();
+				m_inputVec = (Vector3.up * MOVE_SPEED);
 			}
+			else if (Input.GetKey(KeyCode.S))
+			{
+				m_inputVec = (Vector3.down * MOVE_SPEED);
+			}
+			if (Input.GetKey(KeyCode.D))
+			{
+				m_inputVec = (Vector3.right * MOVE_SPEED);
+			}
+			if (Input.GetKey(KeyCode.A))
+			{
+				m_inputVec = (Vector3.left * MOVE_SPEED);
+			}
+			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
+			
+			
+			//if (Input.GetMouseButtonDown(1))
+			//{
+			//	m_cmanager.MoveToPrevious();
+			//}
 		}
 	}
 	#endregion
