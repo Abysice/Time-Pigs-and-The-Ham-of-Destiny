@@ -140,8 +140,6 @@ public class CommandManager : MonoBehaviour
 		}
 		if (m_currentFrameIndex > 0) //can't go back a frame when at frame 0
 		{
-			
-		
 			m_currentFrame = m_currentFrame.Previous; // move back a frame
 			m_currentFrameIndex--;
 			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
@@ -170,19 +168,18 @@ public class CommandManager : MonoBehaviour
 	#region Private Methods
 	private void HangOnFrame()
 	{
-		//foreach (CommandBase com in m_currentFrame.Value)
-		//{
-		//	com.Execute();
-		//}
+		foreach (CommandBase com in m_currentFrame.Value)
+		{
+			com.Execute();
+		}
 	}
 
 	private void HangOnFrameUndo()
 	{
-		//foreach (CommandBase com in m_currentFrame.Value)
-		//{
-		//	com.Undo();
-
-		//}
+		foreach (CommandBase com in m_currentFrame.Value)
+		{
+			com.Undo();
+		}
 	}
 
 	private void ClampTimers()

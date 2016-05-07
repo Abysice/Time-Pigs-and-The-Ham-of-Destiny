@@ -23,15 +23,12 @@ public class Move_Command : CommandBase {
 	public override void Execute()
 	{
 		//m_actor.transform.position = m_endPos;
-		m_actor.transform.position = Vector2.MoveTowards(m_actor.transform.position, m_endPos, 0.5f);
-		//m_actor.GetComponent<Rigidbody2D>().MovePosition(m_endPos);
-		
+		m_actor.transform.position = Vector2.MoveTowards(m_actor.transform.position, m_endPos, 0.1f);
 	}
 
 	public override void Undo()
 	{
 		//m_actor.transform.position = m_startPos;
-		m_actor.transform.position = Vector2.MoveTowards(m_actor.transform.position, m_startPos, 0.5f);
-		//m_actor.GetComponent<Rigidbody2D>().MovePosition(m_startPos);
+		m_actor.transform.position = Vector2.MoveTowards(m_actor.transform.position, m_startPos, 0.1f);
 	}
 }
