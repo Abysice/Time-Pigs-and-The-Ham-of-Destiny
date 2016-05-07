@@ -41,6 +41,7 @@ public class CameraController : MonoBehaviour {
 			Vector3 m_inputVec = Vector3.zero;
 			m_inputVec += (Vector3.up * CAM_SPEED);
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
+
 		}
 		
 	}

@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour {
 			{
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
+
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
 
 			Shoot();

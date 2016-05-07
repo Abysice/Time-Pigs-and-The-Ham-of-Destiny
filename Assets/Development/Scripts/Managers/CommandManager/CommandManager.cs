@@ -17,7 +17,6 @@ public class CommandManager : MonoBehaviour
 	private float MAGIC_TIMER = 0.05f;
 	private float m_timer = 0.05f;
 
-
 	private bool m_isRewinding = false;
 	private InputManager m_inp;
 	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
@@ -26,6 +25,11 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Accessors
+	public float GetMaxTimer()
+	{
+		return m_timer;
+	}
+
 	public float GetTimer()
 	{
 		return MAGIC_TIMER;
@@ -70,10 +74,26 @@ public class CommandManager : MonoBehaviour
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
 			if (!m_isRewinding)
-				AddNewFrame();
-			else if (MAGIC_TIMER < 0.0f)
 			{
-				MoveBackAFrame();
+				if (MAGIC_TIMER == m_timer)
+				{
+					AddNewFrame();
+				}
+				else
+				{
+					HangOnFrame();
+				}
+			}
+			else
+			{
+				if (MAGIC_TIMER < 0.0f)
+				{
+					MoveBackAFrame();
+				}
+				else // Execute at same frame
+				{
+					HangOnFrameUndo();
+				}
 			}
 		}
 	}
@@ -120,6 +140,8 @@ public class CommandManager : MonoBehaviour
 		}
 		if (m_currentFrameIndex > 0) //can't go back a frame when at frame 0
 		{
+			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
+		
 			m_currentFrame = m_currentFrame.Previous; // move back a frame
 			m_currentFrameIndex--;
 		}
@@ -134,12 +156,7 @@ public class CommandManager : MonoBehaviour
 		{
 			return; // don't bother adding a new frame
 		}
-		//if current frame is not last frame
-		while (m_currentFrame != m_commandBuffer.Last)
-		{
-			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
-		}
-		
+	
 		m_commandBuffer.AddLast(new LinkedList<CommandBase>());
 		m_currentFrame = m_commandBuffer.Last;
 		m_currentFrameIndex++;
@@ -150,6 +167,26 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Private Methods
+	private void HangOnFrame()
+	{
+		int i = 0;
+		foreach (CommandBase com in m_currentFrame.Value)
+		{
+			Debug.Log(i);
+			com.Execute();
+			i++;
+		}
+	}
+
+	private void HangOnFrameUndo()
+	{
+		foreach (CommandBase com in m_currentFrame.Value)
+		{
+			com.Undo();
+
+		}
+	}
+
 	private void ClampTimers()
 	{
 		//speeds up time
