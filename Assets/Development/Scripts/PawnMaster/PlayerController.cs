@@ -66,20 +66,7 @@ public class PlayerController : MonoBehaviour {
 			}
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
 
-<<<<<<< HEAD
 			Shoot();
-
-
-=======
-			transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
-
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0f, 0.1f));
-            }
-
->>>>>>> 2235800531522e46dbf6a8b760f95e13d5ac9a4d
 		}
 	}
 	#endregion

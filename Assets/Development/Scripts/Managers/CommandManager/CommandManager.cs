@@ -88,11 +88,6 @@ public class CommandManager : MonoBehaviour
 			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		}
-
-<<<<<<< HEAD
-=======
-		//Debug.Log(m_commandBuffer.Count);
->>>>>>> 2235800531522e46dbf6a8b760f95e13d5ac9a4d
 	}
 
     public void AddDestroyBulletCommand(GameObject p_actor, Vector2 m_position)
@@ -129,10 +124,6 @@ public class CommandManager : MonoBehaviour
 			m_currentFrameIndex--;
 		}
 
-<<<<<<< HEAD
-=======
-		//Debug.Log(m_commandBuffer.Count);
->>>>>>> 2235800531522e46dbf6a8b760f95e13d5ac9a4d
 	}
 
 	//Add a new frame to the buffer
