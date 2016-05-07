@@ -89,7 +89,6 @@ public class CommandManager : MonoBehaviour
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		}
 
-		Debug.Log(m_commandBuffer.Count);
 	}
 
     public void AddDestroyBulletCommand(GameObject p_actor, Vector2 m_position)
@@ -126,7 +125,6 @@ public class CommandManager : MonoBehaviour
 			m_currentFrameIndex--;
 		}
 
-		Debug.Log(m_commandBuffer.Count);
 	}
 
 	//Add a new frame to the buffer

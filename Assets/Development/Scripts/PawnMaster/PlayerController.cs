@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour {
 	private InputManager m_inp;
 	private CommandManager m_cmanager;
     private BulletPool m_bulletPool;
-
 	private float m_moveTimer;
 	#endregion
 
@@ -66,15 +65,10 @@ public class PlayerController : MonoBehaviour {
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
-<<<<<<< HEAD
-			transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
-=======
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position);
-            }
->>>>>>> ac601ed5275a0404cf543d60e43a00ae21137e7c
+			Shoot();
+
+
 		}
 	}
 	#endregion
@@ -86,5 +80,22 @@ public class PlayerController : MonoBehaviour {
 	#endregion
 
 	#region Private Methods
+	public void Shoot()
+	{
+		if (m_moveTimer > 0.0f) // do nothing this frame
+		{
+			m_moveTimer -= Time.deltaTime;
+			return;
+		}
+		else if (m_moveTimer <= 0.0f)
+		{
+			m_moveTimer = 0.1f;
+		}
+
+		if (Input.GetKey(KeyCode.Space))
+		{
+			m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position);
+		}
+	}
 	#endregion
 }
