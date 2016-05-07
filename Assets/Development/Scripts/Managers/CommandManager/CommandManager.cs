@@ -14,8 +14,8 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private float MAGIC_TIMER = 0.1f;
-	private float MAX_TIMER = 0.1f;
+	private float MAGIC_TIMER = 0.05f;
+	private float m_timer = 0.05f;
 
 
 	private bool m_isRewinding = false;
@@ -48,19 +48,8 @@ public class CommandManager : MonoBehaviour
 
 	//runs every frame
 	public void Update()
-	{	
-		//speeds up time
-		//CHANGE ME TO XBOX TRIGGER VALUE LATER
-		if (Input.GetKeyDown(KeyCode.T))
-		{
-			MAX_TIMER -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
-			Mathf.Clamp(MAX_TIMER, 0.01f, 0.1f);
-		}
-
-		if (Input.GetKey(KeyCode.Y))
-			m_isRewinding = true;
-		else
-			m_isRewinding = false;
+	{
+		ClampTimers();
 		///////////////////////////////////////////////////////////////////
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
@@ -68,9 +57,9 @@ public class CommandManager : MonoBehaviour
 			MAGIC_TIMER -= Time.deltaTime;
 			return;
 		}
-		else if (MAGIC_TIMER < 0.0f)
+		else if (MAGIC_TIMER <= 0.0f)
 		{
-			MAGIC_TIMER = MAX_TIMER;
+			MAGIC_TIMER = m_timer;
 		}
 	}
 
@@ -151,7 +140,7 @@ public class CommandManager : MonoBehaviour
 		//if current frame is not last frame
 		while (m_currentFrame != m_commandBuffer.Last)
 		{
-			m_commandBuffer.RemoveLast();//delete all the extra's before we start moving forward again	
+			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
 		}
 		
 		m_commandBuffer.AddLast(new LinkedList<CommandBase>());
@@ -164,6 +153,33 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Private Methods
+	private void ClampTimers()
+	{
+		//speeds up time
+		//CHANGE ME TO XBOX TRIGGER VALUE LATER
+		if (Input.GetKeyDown(KeyCode.T))
+		{
+			m_timer -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+			if (m_timer <= 0f)
+				m_timer = 0f;
+			if (m_timer > 0.05f)
+				m_timer = 0.05f;
+		}
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			m_timer += 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+			if (m_timer <= 0f)
+				m_timer = 0f;
+			if (m_timer > 0.05f)
+				m_timer = 0.05f;
+		}
+		//Debug.Log(m_timer);
+
+		if (Input.GetKey(KeyCode.Y))
+			m_isRewinding = true;
+		else
+			m_isRewinding = false;
+	}
 	#endregion
 
 

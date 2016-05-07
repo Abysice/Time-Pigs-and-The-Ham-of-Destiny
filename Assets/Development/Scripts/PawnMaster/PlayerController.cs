@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	#region Public Variables
 
 
-	private const float MOVE_SPEED = 0.05f;
+	private const float MOVE_SPEED = 0.1f;
 	#endregion
 
 	#region Protected Variables
@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour {
 				return;
 			}
 
-
 			//PlaceHolder Code
 			Vector3 m_inputVec = Vector3.zero;
 			if (Input.GetKey(KeyCode.W))
@@ -67,11 +66,15 @@ public class PlayerController : MonoBehaviour {
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
+<<<<<<< HEAD
+			transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
+=======
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position);
             }
+>>>>>>> ac601ed5275a0404cf543d60e43a00ae21137e7c
 		}
 	}
 	#endregion

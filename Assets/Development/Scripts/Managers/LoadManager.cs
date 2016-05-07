@@ -59,6 +59,7 @@ public class LoadManager : MonoBehaviour {
 	{
 		cameraObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().cameraPrefab);
 		cameraComponent = cameraObject.GetComponent<Camera>();
+		playerObject.transform.parent = cameraObject.transform;
 	}
 	#endregion
 
