@@ -86,7 +86,7 @@ public class CommandManager : MonoBehaviour
 			}
 			else
 			{
-				if (MAGIC_TIMER < 0.0f)
+				if (MAGIC_TIMER == m_timer)
 				{
 					MoveBackAFrame();
 				}
@@ -140,10 +140,11 @@ public class CommandManager : MonoBehaviour
 		}
 		if (m_currentFrameIndex > 0) //can't go back a frame when at frame 0
 		{
-			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
+			
 		
 			m_currentFrame = m_currentFrame.Previous; // move back a frame
 			m_currentFrameIndex--;
+			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
 		}
 
 	}
@@ -169,22 +170,19 @@ public class CommandManager : MonoBehaviour
 	#region Private Methods
 	private void HangOnFrame()
 	{
-		int i = 0;
-		foreach (CommandBase com in m_currentFrame.Value)
-		{
-			Debug.Log(i);
-			com.Execute();
-			i++;
-		}
+		//foreach (CommandBase com in m_currentFrame.Value)
+		//{
+		//	com.Execute();
+		//}
 	}
 
 	private void HangOnFrameUndo()
 	{
-		foreach (CommandBase com in m_currentFrame.Value)
-		{
-			com.Undo();
+		//foreach (CommandBase com in m_currentFrame.Value)
+		//{
+		//	com.Undo();
 
-		}
+		//}
 	}
 
 	private void ClampTimers()
