@@ -99,6 +99,12 @@ public class CommandManager : MonoBehaviour
 		{
 			return; // don't bother adding a new frame
 		}
+		//if current frame is not last frame
+		while (m_currentFrame != m_commandBuffer.Last)
+		{
+			m_commandBuffer.RemoveLast();//delete all the extra's before we start moving forward again	
+		}
+		
 		m_commandBuffer.AddLast(new LinkedList<CommandBase>());
 		m_currentFrame = m_commandBuffer.Last;
 		m_currentFrameIndex++;
