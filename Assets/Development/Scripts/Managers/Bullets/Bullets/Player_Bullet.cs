@@ -36,4 +36,11 @@ public class Player_Bullet : Bullet {
     {
         base.ActivateBullet();
     }
+
+    public override void ActivateBullet(Vector2 p_direction)
+    {
+        base.ActivateBullet();
+        m_bulletDirection = p_direction;
+    }
+
 }
