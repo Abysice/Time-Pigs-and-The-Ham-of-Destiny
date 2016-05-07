@@ -23,10 +23,16 @@ public class BulletPool : ScriptableObject
         }
     }
 
-    public void DestroyObjectPool(GameObject obj)
+    public void ReturnBulletToPool(GameObject obj)
     {
         m_bulletList.Add(obj);
         obj.SetActive(false);
+    }
+
+    public void ReactivateBullet(GameObject obj)
+    {
+        m_bulletList.Remove(obj);
+        obj.SetActive(true);
     }
 
     public void ClearPool()

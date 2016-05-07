@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	#region Private Variables
 	private InputManager m_inp;
 	private CommandManager m_cmanager;
+    private BulletPool m_bulletPool;
 
 	private float m_moveTimer;
 	#endregion
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
 		m_cmanager = Managers.GetInstance().GetCommandManager();
+        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(10, Managers.GetInstance().GetGameProperties().playerBulletPrefab);
 		m_moveTimer = m_cmanager.GetTimer();
 	}
 	//runs every frame
@@ -64,7 +66,15 @@ public class PlayerController : MonoBehaviour {
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
+<<<<<<< HEAD
 			transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
+=======
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position);
+            }
+>>>>>>> ac601ed5275a0404cf543d60e43a00ae21137e7c
 		}
 	}
 	#endregion
