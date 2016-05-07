@@ -16,6 +16,8 @@ public class CommandManager : MonoBehaviour
 	#region Private Variables
 	private float MAGIC_TIMER = 0.1f;
 	private float MAX_TIMER = 0.1f;
+
+
 	private bool m_isRewinding = false;
 	private InputManager m_inp;
 	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
@@ -49,7 +51,10 @@ public class CommandManager : MonoBehaviour
 		//speeds up time
 		//CHANGE ME TO XBOX TRIGGER VALUE LATER
 		if (Input.GetKeyDown(KeyCode.T))
+		{
 			MAX_TIMER -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+			Mathf.Clamp(MAX_TIMER, 0.01f, 0.1f);
+		}
 
 		if (Input.GetKey(KeyCode.Y))
 			m_isRewinding = true;
