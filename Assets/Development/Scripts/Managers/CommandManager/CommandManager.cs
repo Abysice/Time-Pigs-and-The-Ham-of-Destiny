@@ -80,6 +80,12 @@ public class CommandManager : MonoBehaviour
 		Debug.Log(m_commandBuffer.Count);
 	}
 
+    public void AddDestroyBulletCommand(GameObject p_actor, Vector2 m_position)
+    {
+        m_currentFrame.Value.AddFirst(new DestroyBullet_Command(p_actor, p_actor.transform.position));
+        m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+    }
+
 	//move to a certain point in the command buffer from 0-1
 	//public void MoveForward()
 	//{
