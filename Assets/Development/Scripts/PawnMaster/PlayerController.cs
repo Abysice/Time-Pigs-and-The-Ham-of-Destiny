@@ -66,15 +66,15 @@ public class PlayerController : MonoBehaviour {
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
-<<<<<<< HEAD
+
 			transform.position = new Vector3(transform.position.x, transform.position.y, 0.5f);
-=======
+
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position);
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0f, 0.1f));
             }
->>>>>>> ac601ed5275a0404cf543d60e43a00ae21137e7c
+
 		}
 	}
 	#endregion

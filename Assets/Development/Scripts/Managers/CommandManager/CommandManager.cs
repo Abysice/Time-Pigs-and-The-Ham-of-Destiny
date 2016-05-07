@@ -89,7 +89,7 @@ public class CommandManager : MonoBehaviour
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		}
 
-		Debug.Log(m_commandBuffer.Count);
+		//Debug.Log(m_commandBuffer.Count);
 	}
 
     public void AddDestroyBulletCommand(GameObject p_actor, Vector2 m_position)
@@ -101,11 +101,11 @@ public class CommandManager : MonoBehaviour
         }
     }
 
-    public void AddSpawnBulletCommand(BulletPool p_bulletPool, Vector2 m_position)
+    public void AddSpawnBulletCommand(BulletPool p_bulletPool, Vector2 m_position, Vector2 m_direction)
     {
         if (!m_isRewinding)
         {
-            m_currentFrame.Value.AddFirst(new SpawnBullet_Command(p_bulletPool, m_position));
+            m_currentFrame.Value.AddFirst(new SpawnBullet_Command(p_bulletPool, m_position, m_direction));
             m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
         }
     }
@@ -126,7 +126,7 @@ public class CommandManager : MonoBehaviour
 			m_currentFrameIndex--;
 		}
 
-		Debug.Log(m_commandBuffer.Count);
+		//Debug.Log(m_commandBuffer.Count);
 	}
 
 	//Add a new frame to the buffer

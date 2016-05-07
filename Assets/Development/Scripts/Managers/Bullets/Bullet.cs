@@ -69,4 +69,10 @@ public abstract class Bullet : MonoBehaviour
         m_TTLTimer = 50;
         gameObject.SetActive(true);
     }
+
+    public virtual void ActivateBullet(Vector2 p_direction)
+    {
+        m_TTLTimer = 50;
+        gameObject.SetActive(true);
+    }
 }
