@@ -15,14 +15,34 @@ public abstract class Bullet : MonoBehaviour
 
     public virtual void Update()
     {
-        if (m_TTLTimer > 0)
+        if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
         {
-            m_TTLTimer--;
-
-            if (m_TTLTimer <= 0)
+            if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
             {
-                m_cmanager.AddDestroyBulletCommand(gameObject, transform.position);
+                return;
             }
+
+            MoveBullet();
+        }
+    }
+
+    public virtual void MoveBullet()
+    {
+        if (!m_cmanager.GetTimeState())
+        {
+            if (m_TTLTimer > 0)
+            {
+                m_TTLTimer--;
+
+                if (m_TTLTimer <= 0)
+                {
+                    m_cmanager.AddDestroyBulletCommand(gameObject, transform.position);
+                }
+            }
+        }
+        else
+        {
+            m_TTLTimer++;
         }
     }
 
@@ -46,6 +66,7 @@ public abstract class Bullet : MonoBehaviour
 
     public virtual void ActivateBullet()
     {
+        m_TTLTimer = 50;
         gameObject.SetActive(true);
     }
 }

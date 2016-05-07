@@ -6,18 +6,23 @@ public class Player_Bullet : Bullet {
     private Vector2 m_bulletDirection = new Vector2(0f, 0.1f);
 
 	// Use this for initialization
-	void Start () 
+	public override void Start () 
     {
         base.Start();
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	public override void Update () 
     {
         base.Update();
+	}
+
+    public override void MoveBullet()
+    {
+        base.MoveBullet();
 
         m_cmanager.AddMoveCommand(gameObject, new Vector2(transform.position.x, transform.position.y) + m_bulletDirection);
-	}
+    }
 
     void OnTriggerEnter(Collider p_collider)
     {

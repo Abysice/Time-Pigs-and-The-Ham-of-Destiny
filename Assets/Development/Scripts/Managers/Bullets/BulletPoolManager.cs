@@ -5,23 +5,7 @@ using System.Collections.Generic;
 public class BulletPoolManager : MonoBehaviour
 {
 
-    public static BulletPoolManager instance;
-
     private List<BulletPool> m_bulletPoolList = new List<BulletPool>();
-
-    // Use this for initialization
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-    }
 
     public BulletPool GetBulletPool(int p_poolSize, GameObject p_bulletPrefab)
     {
