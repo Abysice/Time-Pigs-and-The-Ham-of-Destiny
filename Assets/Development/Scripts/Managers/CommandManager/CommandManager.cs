@@ -17,6 +17,8 @@ public class CommandManager : MonoBehaviour
 	private float MAGIC_TIMER = 0.1f;
 	private float MAX_TIMER = 0.1f;
 
+
+	private bool m_isRewinding = false;
 	private InputManager m_inp;
 	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
 	private LinkedListNode<LinkedList<CommandBase>> m_currentFrame; //pointer to the current node
@@ -28,6 +30,11 @@ public class CommandManager : MonoBehaviour
 	{
 		return MAGIC_TIMER;
 	}
+
+	public bool GetTimeState()
+	{
+		return m_isRewinding;
+	}
 	#endregion
 
 	#region Unity Defaults
@@ -38,13 +45,23 @@ public class CommandManager : MonoBehaviour
 		AddNewFrame();
 		m_currentFrameIndex = 0;
 	}
+
 	//runs every frame
 	public void Update()
 	{	
 		//speeds up time
 		//CHANGE ME TO XBOX TRIGGER VALUE LATER
 		if (Input.GetKeyDown(KeyCode.T))
+		{
 			MAX_TIMER -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+			Mathf.Clamp(MAX_TIMER, 0.01f, 0.1f);
+		}
+
+		if (Input.GetKey(KeyCode.Y))
+			m_isRewinding = true;
+		else
+			m_isRewinding = false;
+		///////////////////////////////////////////////////////////////////
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
 		{
@@ -55,18 +72,21 @@ public class CommandManager : MonoBehaviour
 		{
 			MAGIC_TIMER = MAX_TIMER;
 		}
-
-		//Add a new "frame" every frame, Later: once list gets too long, remove oldest frame
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
-		{
-			//AddNewFrame();
-		}
 	}
 
 	//stuff after all the commands have been entered
 	public void LateUpdate()
 	{
-		
+		//runs before every frame
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
+		{
+			if (!m_isRewinding)
+				AddNewFrame();
+			else if (MAGIC_TIMER < 0.0f)
+			{
+				MoveBackAFrame();
+			}
+		}
 	}
 	#endregion
 
@@ -74,34 +94,17 @@ public class CommandManager : MonoBehaviour
 	//add a command to the current frame
 	public void AddMoveCommand(GameObject p_actor, Vector2 m_destination)
 	{
-		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
-		m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
-		AddNewFrame();
+		if (!m_isRewinding)
+		{
+			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
+			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+		}
+
 		Debug.Log(m_commandBuffer.Count);
 	}
 
-    public void AddDestroyBulletCommand(GameObject p_actor, Vector2 m_position)
-    {
-        m_currentFrame.Value.AddFirst(new DestroyBullet_Command(p_actor, p_actor.transform.position));
-        m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
-    }
 
-	//move to a certain point in the command buffer from 0-1
-	//public void MoveForward()
-	//{
-	//	if (m_currentFrame == null)
-	//	{
-	//		Debug.Log("This should never happen");
-	//		AddNewFrame();
-	//	}
-	//	foreach (CommandBase com in m_currentFrame.Value)
-	//	{
-	//		com.Execute();
-	//	}
-	//	m_currentFrame = m_currentFrame.Next; // move back a frame
-	//	m_currentFrameIndex++;
-	//}
-	public void MoveToPrevious()
+	public void MoveBackAFrame()
 	{
 		if (m_currentFrame.Value.Count > 0)
 		{
@@ -117,7 +120,6 @@ public class CommandManager : MonoBehaviour
 		}
 
 		Debug.Log(m_commandBuffer.Count);
-
 	}
 
 	//Add a new frame to the buffer

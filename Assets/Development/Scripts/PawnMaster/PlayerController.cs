@@ -67,10 +67,6 @@ public class PlayerController : MonoBehaviour {
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
 			
 			
-			//if (Input.GetMouseButtonDown(1))
-			//{
-			//	m_cmanager.MoveToPrevious();
-			//}
 		}
 	}
 	#endregion
