@@ -16,6 +16,7 @@ public class LoadManager : MonoBehaviour {
 	#region Private Variables
 	public GameObject playerObject;
 	public GameObject cameraObject;
+	public GameObject enemyObject;
 	public Camera cameraComponent;
 	#endregion
 
@@ -54,6 +55,11 @@ public class LoadManager : MonoBehaviour {
 	{
 		playerObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().playerPrefab);
 	}
+	
+	/*public void SpawnEnemy()
+	{
+		enemyObject = GameObject.Instantiate(Managers.GetInstance().GetGameProperties().enemyPrefab);
+	}*/
 	
 	public void SpawnCamera()
 	{

@@ -9,7 +9,6 @@ public class GameProperties : MonoBehaviour {
 	private string m_levelScene = "LEVEL_SCENE";
 	private string m_menuScene = "MAIN_MENU";
 
-
 	public string LevelScene
 	{
 		get { return m_levelScene; }
@@ -22,6 +21,15 @@ public class GameProperties : MonoBehaviour {
 
 	public GameObject playerPrefab;
 	public GameObject cameraPrefab;
-
+	
+	//enemy prefabs
+	public GameObject DLD;
+	public GameObject DRD;
+	public GameObject URD;
+	public GameObject ULD;
+	public GameObject D;
+	public GameObject L2R;
+	public GameObject R2L;
+	
 
 }
