@@ -7,8 +7,6 @@ using System.Collections.Generic;
 
 public class CommandManager : MonoBehaviour
 {
-	public const float MOVE_SPEED = 0.2f;
-    public const int COMMAND_BUFFER_SIZE = 180;
 	#region Public Variables
 	#endregion
 
@@ -17,11 +15,9 @@ public class CommandManager : MonoBehaviour
 
 	#region Private Variables
 	private InputManager m_inp;
-	//private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
-	//private LinkedListNode<LinkedList<CommandBase>> m_currentFrame; //pointer to the current node
-	//private int m_currentFrameIndex;
-
-    private CommandStack<LinkedList<CommandBase>> m_commandBuffer = new CommandStack<LinkedList<CommandBase>>();
+	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
+	private LinkedListNode<LinkedList<CommandBase>> m_currentFrame; //pointer to the current node
+	private int m_currentFrameIndex;
 	#endregion
 
 	#region Accessors
@@ -33,7 +29,7 @@ public class CommandManager : MonoBehaviour
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
 		AddNewFrame();
-		//m_currentFrameIndex = 0;
+		m_currentFrameIndex = 0;
 	}
 	//runs every frame
 	public void Update()
@@ -54,15 +50,12 @@ public class CommandManager : MonoBehaviour
 
 	#region Public Methods
 	//add a command to the current frame
-	public void AddMoveCommand(GameObject p_actor)
+	public void AddMoveCommand(GameObject p_actor, float MOVE_SPEED)
 	{
-        AddNewFrame();
 		Vector3 newpos = ((new Vector3(m_inp.MouseInWorldCoords.x, m_inp.MouseInWorldCoords.y, 0.0f) - p_actor.transform.position).normalized * MOVE_SPEED) + p_actor.transform.position;
-        m_commandBuffer.Peek().AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
-        m_commandBuffer.Peek().First.Value.Execute();
-		//m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
-		//m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
-		
+		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, newpos));
+		m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+		AddNewFrame();
 		Debug.Log(m_commandBuffer.Count);
 	}
 
@@ -83,20 +76,18 @@ public class CommandManager : MonoBehaviour
 	//}
 	public void MoveToPrevious()
 	{
-        if (m_commandBuffer.Count == 0)
-            return;
-
-        LinkedList<CommandBase> m_currentFrame = m_commandBuffer.Pop();
-        if (m_currentFrame.Count > 0)
+		if (m_currentFrame.Value.Count > 0)
 		{
-            foreach (CommandBase com in m_currentFrame)
+			foreach (CommandBase com in m_currentFrame.Value)
 			{
 				com.Undo();
 			}
 		}
-		//m_currentFrame = m_currentFrame.Previous; // move back a frame
-		//m_currentFrameIndex--;
-
+		if (m_currentFrameIndex > 0) //can't go back a frame when at frame 0
+		{
+			m_currentFrame = m_currentFrame.Previous; // move back a frame
+			m_currentFrameIndex--;
+		}
 
 		Debug.Log(m_commandBuffer.Count);
 
@@ -105,7 +96,6 @@ public class CommandManager : MonoBehaviour
 	//Add a new frame to the buffer
 	public void AddNewFrame()
 	{
-        /*
 		//if last frame had nothing happen
 		if (m_currentFrame != null && m_currentFrame.Value.Count == 0)
 		{
@@ -120,13 +110,6 @@ public class CommandManager : MonoBehaviour
 		m_commandBuffer.AddLast(new LinkedList<CommandBase>());
 		m_currentFrame = m_commandBuffer.Last;
 		m_currentFrameIndex++;
-         * */
-        if (m_commandBuffer.Count == COMMAND_BUFFER_SIZE)
-        {
-            m_commandBuffer.RemoveFirstElement();
-        }
-
-        m_commandBuffer.Push(new LinkedList<CommandBase>());
 	}
 	#endregion
 
