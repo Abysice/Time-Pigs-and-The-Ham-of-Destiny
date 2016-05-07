@@ -16,7 +16,7 @@ public class CommandManager : MonoBehaviour
 	#region Private Variables
 	private float MAGIC_TIMER = 0.1f;
 	private float MAX_TIMER = 0.1f;
-
+	private bool m_isRewinding = false;
 	private InputManager m_inp;
 	private LinkedList<LinkedList<CommandBase>> m_commandBuffer = new LinkedList<LinkedList<CommandBase>>(); //command buffer storing all commands
 	private LinkedListNode<LinkedList<CommandBase>> m_currentFrame; //pointer to the current node
@@ -27,6 +27,11 @@ public class CommandManager : MonoBehaviour
 	public float GetTimer()
 	{
 		return MAGIC_TIMER;
+	}
+
+	public bool GetTimeState()
+	{
+		return m_isRewinding;
 	}
 	#endregion
 
@@ -45,6 +50,11 @@ public class CommandManager : MonoBehaviour
 		//CHANGE ME TO XBOX TRIGGER VALUE LATER
 		if (Input.GetKeyDown(KeyCode.T))
 			MAX_TIMER -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+
+		if (Input.GetKey(KeyCode.Y))
+			m_isRewinding = true;
+		else
+			m_isRewinding = false;
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
 		{
@@ -74,9 +84,15 @@ public class CommandManager : MonoBehaviour
 	//add a command to the current frame
 	public void AddMoveCommand(GameObject p_actor, Vector2 m_destination)
 	{
-		m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
-		m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
-		AddNewFrame();
+		if (!m_isRewinding)
+		{
+			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
+			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+			AddNewFrame();
+		}
+		else
+			MoveBackAFrame();
+
 		Debug.Log(m_commandBuffer.Count);
 	}
 
@@ -95,7 +111,7 @@ public class CommandManager : MonoBehaviour
 	//	m_currentFrame = m_currentFrame.Next; // move back a frame
 	//	m_currentFrameIndex++;
 	//}
-	public void MoveToPrevious()
+	public void MoveBackAFrame()
 	{
 		if (m_currentFrame.Value.Count > 0)
 		{
