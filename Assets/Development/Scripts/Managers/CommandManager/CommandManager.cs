@@ -46,7 +46,6 @@ public class CommandManager : MonoBehaviour
 		m_currentFrameIndex = 0;
 	}
 
-
 	//runs every frame
 	public void Update()
 	{	
@@ -62,8 +61,7 @@ public class CommandManager : MonoBehaviour
 			m_isRewinding = true;
 		else
 			m_isRewinding = false;
-
-
+		///////////////////////////////////////////////////////////////////
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
 		{
@@ -74,8 +72,6 @@ public class CommandManager : MonoBehaviour
 		{
 			MAGIC_TIMER = MAX_TIMER;
 		}
-
-
 	}
 
 	//stuff after all the commands have been entered
@@ -86,8 +82,10 @@ public class CommandManager : MonoBehaviour
 		{
 			if (!m_isRewinding)
 				AddNewFrame();
-			else
+			else if (MAGIC_TIMER < 0.0f)
+			{
 				MoveBackAFrame();
+			}
 		}
 	}
 	#endregion
