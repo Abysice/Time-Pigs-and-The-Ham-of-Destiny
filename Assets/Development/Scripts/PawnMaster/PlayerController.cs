@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	#region Public Variables
 
 
-	private const float MOVE_SPEED = 0.05f;
+	private const float MOVE_SPEED = 0.1f;
 	#endregion
 
 	#region Protected Variables
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
 	#region Private Variables
 	private InputManager m_inp;
 	private CommandManager m_cmanager;
-
+    private BulletPool m_bulletPool;
 	private float m_moveTimer;
 	#endregion
 
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
 		m_cmanager = Managers.GetInstance().GetCommandManager();
+        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(20, Managers.GetInstance().GetGameProperties().playerBulletPrefab);
 		m_moveTimer = m_cmanager.GetTimer();
 	}
 	//runs every frame
@@ -44,7 +45,6 @@ public class PlayerController : MonoBehaviour {
 			{
 				return;
 			}
-
 
 			//PlaceHolder Code
 			Vector3 m_inputVec = Vector3.zero;
@@ -64,13 +64,10 @@ public class PlayerController : MonoBehaviour {
 			{
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
+
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
-			
-			
-			//if (Input.GetMouseButtonDown(1))
-			//{
-			//	m_cmanager.MoveToPrevious();
-			//}
+
+			Shoot();
 		}
 	}
 	#endregion
@@ -82,5 +79,22 @@ public class PlayerController : MonoBehaviour {
 	#endregion
 
 	#region Private Methods
+	public void Shoot()
+	{
+		if (m_moveTimer > 0.0f) // do nothing this frame
+		{
+			m_moveTimer -= Time.deltaTime;
+			return;
+		}
+		else if (m_moveTimer <= 0.0f)
+		{
+			m_moveTimer = 0.1f;
+		}
+
+		if (Input.GetKey(KeyCode.Space))
+		{
+			m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, 0.2f));
+		}
+	}
 	#endregion
 }

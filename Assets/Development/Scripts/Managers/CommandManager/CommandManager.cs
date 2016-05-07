@@ -14,9 +14,8 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private float MAGIC_TIMER = 0.1f;
-	private float MAX_TIMER = 0.1f;
-
+	private float MAGIC_TIMER = 0.05f;
+	private float m_timer = 0.05f;
 
 	private bool m_isRewinding = false;
 	private InputManager m_inp;
@@ -26,6 +25,11 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Accessors
+	public float GetMaxTimer()
+	{
+		return m_timer;
+	}
+
 	public float GetTimer()
 	{
 		return MAGIC_TIMER;
@@ -46,36 +50,21 @@ public class CommandManager : MonoBehaviour
 		m_currentFrameIndex = 0;
 	}
 
-
 	//runs every frame
 	public void Update()
-	{	
-		//speeds up time
-		//CHANGE ME TO XBOX TRIGGER VALUE LATER
-		if (Input.GetKeyDown(KeyCode.T))
-		{
-			MAX_TIMER -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
-			Mathf.Clamp(MAX_TIMER, 0.01f, 0.1f);
-		}
-
-		if (Input.GetKey(KeyCode.Y))
-			m_isRewinding = true;
-		else
-			m_isRewinding = false;
-
-
+	{
+		ClampTimers();
+		///////////////////////////////////////////////////////////////////
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
 		{
 			MAGIC_TIMER -= Time.deltaTime;
 			return;
 		}
-		else if (MAGIC_TIMER < 0.0f)
+		else if (MAGIC_TIMER <= 0.0f)
 		{
-			MAGIC_TIMER = MAX_TIMER;
+			MAGIC_TIMER = m_timer;
 		}
-
-
 	}
 
 	//stuff after all the commands have been entered
@@ -85,9 +74,27 @@ public class CommandManager : MonoBehaviour
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
 			if (!m_isRewinding)
-				AddNewFrame();
+			{
+				if (MAGIC_TIMER == m_timer)
+				{
+					AddNewFrame();
+				}
+				else
+				{
+					HangOnFrame();
+				}
+			}
 			else
-				MoveBackAFrame();
+			{
+				if (MAGIC_TIMER == m_timer)
+				{
+					MoveBackAFrame();
+				}
+				else // Execute at same frame
+				{
+					HangOnFrameUndo();
+				}
+			}
 		}
 	}
 	#endregion
@@ -101,9 +108,25 @@ public class CommandManager : MonoBehaviour
 			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		}
-
-		Debug.Log(m_commandBuffer.Count);
 	}
+
+    public void AddDestroyBulletCommand(GameObject p_actor, Vector2 m_position)
+    {
+        if (!m_isRewinding)
+        {
+            m_currentFrame.Value.AddFirst(new DestroyBullet_Command(p_actor, p_actor.transform.position));
+            m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+        }
+    }
+
+    public void AddSpawnBulletCommand(BulletPool p_bulletPool, Vector2 m_position, Vector2 m_direction)
+    {
+        if (!m_isRewinding)
+        {
+            m_currentFrame.Value.AddFirst(new SpawnBullet_Command(p_bulletPool, m_position, m_direction));
+            m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+        }
+    }
 
 
 	public void MoveBackAFrame()
@@ -117,11 +140,13 @@ public class CommandManager : MonoBehaviour
 		}
 		if (m_currentFrameIndex > 0) //can't go back a frame when at frame 0
 		{
+			
+		
 			m_currentFrame = m_currentFrame.Previous; // move back a frame
 			m_currentFrameIndex--;
+			m_commandBuffer.RemoveLast(); //delete all the extra's before we start moving forward again	
 		}
 
-		Debug.Log(m_commandBuffer.Count);
 	}
 
 	//Add a new frame to the buffer
@@ -132,12 +157,7 @@ public class CommandManager : MonoBehaviour
 		{
 			return; // don't bother adding a new frame
 		}
-		//if current frame is not last frame
-		while (m_currentFrame != m_commandBuffer.Last)
-		{
-			m_commandBuffer.RemoveLast();//delete all the extra's before we start moving forward again	
-		}
-		
+	
 		m_commandBuffer.AddLast(new LinkedList<CommandBase>());
 		m_currentFrame = m_commandBuffer.Last;
 		m_currentFrameIndex++;
@@ -148,6 +168,50 @@ public class CommandManager : MonoBehaviour
 	#endregion
 
 	#region Private Methods
+	private void HangOnFrame()
+	{
+		//foreach (CommandBase com in m_currentFrame.Value)
+		//{
+		//	com.Execute();
+		//}
+	}
+
+	private void HangOnFrameUndo()
+	{
+		//foreach (CommandBase com in m_currentFrame.Value)
+		//{
+		//	com.Undo();
+
+		//}
+	}
+
+	private void ClampTimers()
+	{
+		//speeds up time
+		//CHANGE ME TO XBOX TRIGGER VALUE LATER
+		if (Input.GetKeyDown(KeyCode.T))
+		{
+			m_timer -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+			if (m_timer <= 0f)
+				m_timer = 0f;
+			if (m_timer > 0.05f)
+				m_timer = 0.05f;
+		}
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			m_timer += 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
+			if (m_timer <= 0f)
+				m_timer = 0f;
+			if (m_timer > 0.05f)
+				m_timer = 0.05f;
+		}
+		//Debug.Log(m_timer);
+
+		if (Input.GetKey(KeyCode.Y))
+			m_isRewinding = true;
+		else
+			m_isRewinding = false;
+	}
 	#endregion
 
 

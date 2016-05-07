@@ -5,6 +5,7 @@ using System.Linq;
 public class EnemyManager : MonoBehaviour {
 
 	#region Public Variables
+	public GameObject enemyObject;
 	#endregion
 	
 	#region Protected Variables
@@ -35,7 +36,7 @@ public class EnemyManager : MonoBehaviour {
 		if (current_wave == 0)
 		{
 			wave = GameObject.FindGameObjectsWithTag("0");
-			foreach (GameObject spawner in wave0
+			foreach (GameObject spawner in wave)
 			{
 				SpawnController cont = spawner.GetComponent<SpawnController>();
 				cont.allowSpawn();

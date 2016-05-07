@@ -23,23 +23,6 @@ public class EnemyController : MonoBehaviour {
 	#region Unity Defaults
 	void Start ()
 	{
-		/*switch(move_type)
-		{
-		case 1: //v-type, move horizontally right to left across the screen
-			transform.localScale = new Vector3(1f, 1f, transform.localScale.z * -2f);
-			break;
-		case 2: //v-type, move horizontally left to right across the screen
-			transform.localScale = new Vector3(1f, 1f, transform.localScale.z * 2f);
-			break;
-		case 3: //o-type 1, move down the screen along the right diagonal
-			transform.localScale = new Vector3(1f, 1f, transform.localScale.z * -1.5f);
-			break;
-		case 4: //o-type 1, move down the screen along the left diagonal
-			transform.localScale = new Vector3(1f, 1f, transform.localScale.z * 1.5f);
-			break;
-		case 5: //m-type, move vertically down the screen
-			break;
-		}*/
 		m_cmanager = Managers.GetInstance().GetCommandManager();
 	}
 	
