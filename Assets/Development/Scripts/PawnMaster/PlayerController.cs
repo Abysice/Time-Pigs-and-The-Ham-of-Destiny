@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		m_inp = Managers.GetInstance().GetInputManager();
 		m_cmanager = Managers.GetInstance().GetCommandManager();
-        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(10, Managers.GetInstance().GetGameProperties().playerBulletPrefab);
+        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(20, Managers.GetInstance().GetGameProperties().playerBulletPrefab);
 		m_moveTimer = m_cmanager.GetTimer();
 	}
 	//runs every frame

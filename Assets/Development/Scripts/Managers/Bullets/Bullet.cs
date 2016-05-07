@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class Bullet : MonoBehaviour
 {
     private BulletPool m_bulletManager;
-    protected float m_TTLTimer = 50;
+    protected float m_TTLTimer = 100;
     protected CommandManager m_cmanager;
 
     //Unity default
@@ -48,7 +48,7 @@ public abstract class Bullet : MonoBehaviour
 
     public void DestroyBullet()
     {
-        m_TTLTimer = 50;
+        m_TTLTimer = 100;
         m_bulletManager.ReturnBulletToPool(gameObject);
     }
 
@@ -66,13 +66,13 @@ public abstract class Bullet : MonoBehaviour
 
     public virtual void ActivateBullet()
     {
-        m_TTLTimer = 50;
+        m_TTLTimer = 100;
         gameObject.SetActive(true);
     }
 
     public virtual void ActivateBullet(Vector2 p_direction)
     {
-        m_TTLTimer = 50;
+        m_TTLTimer = 100;
         gameObject.SetActive(true);
     }
 }
