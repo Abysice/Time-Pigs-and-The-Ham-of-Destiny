@@ -7,8 +7,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-
 	#region Public Variables
+	public const float MOVE_SPEED = 0.2f;
 	#endregion
 
 	#region Protected Variables
@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour {
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
 			//PlaceHolder Code
-			if (Input.GetMouseButton(0))
+			if (Input.GetMouseButtonDown(0))
 			{
-				m_cmanager.AddMoveCommand(gameObject);
+				m_cmanager.AddMoveCommand(gameObject, MOVE_SPEED);
 			}
 
-			if (Input.GetMouseButton(1))
+			if (Input.GetMouseButtonDown(1))
 			{
 				m_cmanager.MoveToPrevious();
 			}
