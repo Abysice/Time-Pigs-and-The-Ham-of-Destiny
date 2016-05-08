@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 					m_inputVec.x = 0;
 			} 
 	
-			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
+			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.localPosition + m_inputVec);
 
 			Shoot();
 		}
