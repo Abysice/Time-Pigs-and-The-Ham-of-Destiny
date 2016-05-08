@@ -1,0 +1,615 @@
+fileFormatVersion: 2
+guid: e4a98b6c42c349144975c0b69aa6db09
+timeCreated: 1462677306
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: baconbottom sheet_0
+    21300002: baconbottom sheet_1
+    21300004: baconbottom sheet_2
+    21300006: baconbottom sheet_3
+    21300008: baconbottom sheet_4
+    21300010: baconbottom sheet_5
+    21300012: baconbottom sheet_6
+    21300014: baconbottom sheet_7
+    21300016: baconbottom sheet_8
+    21300018: baconbottom sheet_9
+    21300020: baconbottom sheet_10
+    21300022: baconbottom sheet_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: baconbottom sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 35, y: -229}
+        - {x: 84, y: -229}
+        - {x: 99, y: -208}
+        - {x: 99, y: -174}
+        - {x: 116, y: -147}
+        - {x: 116, y: -94}
+        - {x: 103, y: -68}
+        - {x: 129, y: -48}
+        - {x: 131, y: -45}
+        - {x: 131, y: -5}
+        - {x: 121, y: 33}
+        - {x: 123, y: 69}
+        - {x: 111, y: 103}
+        - {x: 63, y: 117}
+        - {x: 76, y: 204}
+        - {x: 69, y: 211}
+        - {x: 26, y: 223}
+        - {x: -36, y: 223}
+        - {x: -80, y: 207}
+        - {x: -82, y: 113}
+        - {x: -123, y: 83}
+        - {x: -123, y: -46}
+        - {x: -100, y: -65}
+        - {x: -108, y: -86}
+        - {x: -113, y: -135}
+        - {x: -87, y: -163}
+        - {x: -90, y: -210}
+        - {x: -80, y: -229}
+        - {x: -21, y: -229}
+        - {x: -10, y: -220}
+        - {x: -2, y: -177}
+        - {x: 15, y: -211}
+    - name: baconbottom sheet_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17, y: -226}
+        - {x: 33, y: -230}
+        - {x: 87, y: -230}
+        - {x: 101, y: -210}
+        - {x: 115, y: -139}
+        - {x: 118, y: -95}
+        - {x: 101, y: -77}
+        - {x: 131, y: -47}
+        - {x: 131, y: 30}
+        - {x: 125, y: 75}
+        - {x: 101, y: 104}
+        - {x: 60, y: 115}
+        - {x: 77, y: 197}
+        - {x: 74, y: 209}
+        - {x: 35, y: 222}
+        - {x: 30, y: 223}
+        - {x: -37, y: 223}
+        - {x: -77, y: 209}
+        - {x: -57, y: 113}
+        - {x: -67, y: 114}
+        - {x: -105, y: 97}
+        - {x: -119, y: 71}
+        - {x: -117, y: 60}
+        - {x: -110, y: 38}
+        - {x: -123, y: -1}
+        - {x: -123, y: -40}
+        - {x: -115, y: -56}
+        - {x: -108, y: -85}
+        - {x: -115, y: -134}
+        - {x: -89, y: -158}
+        - {x: -90, y: -213}
+        - {x: -74, y: -230}
+        - {x: -20, y: -230}
+        - {x: -9, y: -214}
+        - {x: -7, y: -176}
+        - {x: 18, y: -176}
+    - name: baconbottom sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19, y: -207}
+        - {x: 23, y: -228}
+        - {x: 36, y: -231}
+        - {x: 83, y: -231}
+        - {x: 96, y: -217}
+        - {x: 104, y: -152}
+        - {x: 124, y: -135}
+        - {x: 116, y: -69}
+        - {x: 131, y: -48}
+        - {x: 131, y: 17}
+        - {x: 121, y: 72}
+        - {x: 100, y: 102}
+        - {x: 87, y: 106}
+        - {x: 69, y: 109}
+        - {x: 77, y: 194}
+        - {x: 75, y: 211}
+        - {x: 42, y: 221}
+        - {x: -43, y: 221}
+        - {x: -80, y: 205}
+        - {x: -56, y: 114}
+        - {x: -99, y: 99}
+        - {x: -122, y: 66}
+        - {x: -113, y: 28}
+        - {x: -123, y: 3}
+        - {x: -123, y: -46}
+        - {x: -109, y: -73}
+        - {x: -112, y: -103}
+        - {x: -106, y: -149}
+        - {x: -85, y: -160}
+        - {x: -87, y: -211}
+        - {x: -77, y: -231}
+        - {x: -26, y: -231}
+        - {x: -10, y: -219}
+        - {x: -7, y: -210}
+        - {x: 19, y: -181}
+    - name: baconbottom sheet_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: -227}
+        - {x: 30, y: -233}
+        - {x: 80, y: -233}
+        - {x: 99, y: -213}
+        - {x: 115, y: -149}
+        - {x: 118, y: -90}
+        - {x: 93, y: -80}
+        - {x: 131, y: -53}
+        - {x: 131, y: -14}
+        - {x: 120, y: 19}
+        - {x: 123, y: 65}
+        - {x: 110, y: 95}
+        - {x: 68, y: 115}
+        - {x: 78, y: 207}
+        - {x: 37, y: 218}
+        - {x: -27, y: 218}
+        - {x: -56, y: 215}
+        - {x: -76, y: 200}
+        - {x: -57, y: 107}
+        - {x: -78, y: 104}
+        - {x: -98, y: 95}
+        - {x: -119, y: 70}
+        - {x: -119, y: 20}
+        - {x: -123, y: -7}
+        - {x: -123, y: -54}
+        - {x: -90, y: -82}
+        - {x: -112, y: -108}
+        - {x: -107, y: -139}
+        - {x: -92, y: -159}
+        - {x: -86, y: -209}
+        - {x: -77, y: -231}
+        - {x: -65, y: -233}
+        - {x: -17, y: -233}
+        - {x: -9, y: -230}
+        - {x: -3, y: -181}
+        - {x: 14, y: -188}
+    - name: baconbottom sheet_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 91, y: -220}
+        - {x: 113, y: -156}
+        - {x: 115, y: -96}
+        - {x: 130, y: -58}
+        - {x: 131, y: -52}
+        - {x: 131, y: 61}
+        - {x: 102, y: 113}
+        - {x: 59, y: 106}
+        - {x: 78, y: 188}
+        - {x: 72, y: 202}
+        - {x: 50, y: 208}
+        - {x: 16, y: 215}
+        - {x: -30, y: 215}
+        - {x: -74, y: 200}
+        - {x: -73, y: 176}
+        - {x: -63, y: 134}
+        - {x: -123, y: 68}
+        - {x: -123, y: -55}
+        - {x: -120, y: -69}
+        - {x: -61, y: -88}
+        - {x: -58, y: -87}
+        - {x: -55, y: -89}
+        - {x: -52, y: -89}
+        - {x: -72, y: -88}
+        - {x: -87, y: -84}
+        - {x: -114, y: -109}
+        - {x: -104, y: -164}
+        - {x: -73, y: -235}
+        - {x: -18, y: -235}
+        - {x: -5, y: -231}
+        - {x: 24, y: -234}
+        - {x: 29, y: -235}
+        - {x: 77, y: -235}
+    - name: baconbottom sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 110, y: -99}
+        - {x: 90, y: -87}
+        - {x: 131, y: -62}
+        - {x: 131, y: -8}
+        - {x: 129, y: 3}
+        - {x: 127, y: 45}
+        - {x: 115, y: 87}
+        - {x: 67, y: 112}
+        - {x: 77, y: 193}
+        - {x: 59, y: 208}
+        - {x: 34, y: 212}
+        - {x: -39, y: 212}
+        - {x: -79, y: 196}
+        - {x: -56, y: 105}
+        - {x: -101, y: 92}
+        - {x: -123, y: 58}
+        - {x: -123, y: 54}
+        - {x: -113, y: 26}
+        - {x: -123, y: -7}
+        - {x: -123, y: -53}
+        - {x: -122, y: -59}
+        - {x: -103, y: -147}
+        - {x: -93, y: -160}
+        - {x: -81, y: -187}
+        - {x: -81, y: -223}
+        - {x: -62, y: -237}
+        - {x: -19, y: -237}
+        - {x: -1, y: -218}
+        - {x: 16, y: -185}
+        - {x: 13, y: -217}
+        - {x: 25, y: -237}
+        - {x: 80, y: -237}
+        - {x: 91, y: -222}
+        - {x: 88, y: -175}
+        - {x: 110, y: -154}
+    - name: baconbottom sheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 31, y: -237}
+        - {x: 82, y: -237}
+        - {x: 98, y: -187}
+        - {x: 111, y: -148}
+        - {x: 104, y: -92}
+        - {x: 131, y: -68}
+        - {x: 131, y: 7}
+        - {x: 124, y: 56}
+        - {x: 112, y: 88}
+        - {x: 66, y: 106}
+        - {x: 77, y: 191}
+        - {x: 73, y: 202}
+        - {x: 28, y: 210}
+        - {x: -41, y: 210}
+        - {x: -67, y: 198}
+        - {x: -77, y: 192}
+        - {x: -59, y: 101}
+        - {x: -95, y: 93}
+        - {x: -116, y: 65}
+        - {x: -123, y: 43}
+        - {x: -123, y: 40}
+        - {x: -119, y: -7}
+        - {x: -123, y: -15}
+        - {x: -123, y: -56}
+        - {x: -108, y: -84}
+        - {x: -100, y: -102}
+        - {x: -103, y: -148}
+        - {x: -92, y: -161}
+        - {x: -76, y: -224}
+        - {x: -64, y: -237}
+        - {x: -23, y: -237}
+        - {x: -12, y: -235}
+        - {x: -5, y: -221}
+        - {x: -5, y: -182}
+        - {x: 14, y: -224}
+    - name: baconbottom sheet_7
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 107, y: -101}
+        - {x: 122, y: -77}
+        - {x: 131, y: -56}
+        - {x: 131, y: -15}
+        - {x: 129, y: -12}
+        - {x: 129, y: 38}
+        - {x: 115, y: 92}
+        - {x: 64, y: 105}
+        - {x: 76, y: 183}
+        - {x: 75, y: 197}
+        - {x: 25, y: 210}
+        - {x: -38, y: 210}
+        - {x: -82, y: 194}
+        - {x: -63, y: 106}
+        - {x: -113, y: 81}
+        - {x: -122, y: 42}
+        - {x: -123, y: 30}
+        - {x: -123, y: -66}
+        - {x: -92, y: -83}
+        - {x: -100, y: -103}
+        - {x: -103, y: -147}
+        - {x: -93, y: -160}
+        - {x: -81, y: -223}
+        - {x: -62, y: -237}
+        - {x: -19, y: -237}
+        - {x: -1, y: -218}
+        - {x: 16, y: -185}
+        - {x: 13, y: -217}
+        - {x: 25, y: -237}
+        - {x: 80, y: -237}
+        - {x: 91, y: -222}
+        - {x: 92, y: -175}
+        - {x: 113, y: -142}
+    - name: baconbottom sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 77, y: -235}
+        - {x: 91, y: -220}
+        - {x: 90, y: -178}
+        - {x: 111, y: -155}
+        - {x: 113, y: -95}
+        - {x: 130, y: -63}
+        - {x: 131, y: -56}
+        - {x: 131, y: -9}
+        - {x: 119, y: 27}
+        - {x: 128, y: 62}
+        - {x: 110, y: 88}
+        - {x: 71, y: 107}
+        - {x: 59, y: 104}
+        - {x: 78, y: 194}
+        - {x: 64, y: 203}
+        - {x: 26, y: 212}
+        - {x: -22, y: 212}
+        - {x: -52, y: 208}
+        - {x: -77, y: 195}
+        - {x: -60, y: 106}
+        - {x: -100, y: 91}
+        - {x: -123, y: 57}
+        - {x: -123, y: 55}
+        - {x: -119, y: -4}
+        - {x: -123, y: -27}
+        - {x: -123, y: -57}
+        - {x: -90, y: -84}
+        - {x: -114, y: -109}
+        - {x: -97, y: -164}
+        - {x: -78, y: -225}
+        - {x: -71, y: -235}
+        - {x: -23, y: -235}
+        - {x: -5, y: -231}
+        - {x: -8, y: -186}
+        - {x: 24, y: -234}
+        - {x: 29, y: -235}
+    - name: baconbottom sheet_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 33, y: -233}
+        - {x: 80, y: -233}
+        - {x: 103, y: -213}
+        - {x: 104, y: -162}
+        - {x: 124, y: -136}
+        - {x: 107, y: -86}
+        - {x: 129, y: -59}
+        - {x: 131, y: -50}
+        - {x: 131, y: -7}
+        - {x: 111, y: 33}
+        - {x: 124, y: 49}
+        - {x: 121, y: 70}
+        - {x: 97, y: 101}
+        - {x: 60, y: 107}
+        - {x: 80, y: 198}
+        - {x: 43, y: 212}
+        - {x: 22, y: 215}
+        - {x: -37, y: 215}
+        - {x: -79, y: 203}
+        - {x: -60, y: 106}
+        - {x: -93, y: 98}
+        - {x: -107, y: 83}
+        - {x: -123, y: 62}
+        - {x: -123, y: 33}
+        - {x: -120, y: -1}
+        - {x: -123, y: -15}
+        - {x: -123, y: -78}
+        - {x: -107, y: -139}
+        - {x: -92, y: -159}
+        - {x: -86, y: -209}
+        - {x: -77, y: -231}
+        - {x: -65, y: -233}
+        - {x: -17, y: -233}
+        - {x: -9, y: -230}
+        - {x: -3, y: -181}
+        - {x: 12, y: -227}
+    - name: baconbottom sheet_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 36, y: -231}
+        - {x: 83, y: -231}
+        - {x: 96, y: -217}
+        - {x: 104, y: -152}
+        - {x: 117, y: -133}
+        - {x: 111, y: -91}
+        - {x: 120, y: -64}
+        - {x: 131, y: -52}
+        - {x: 131, y: -6}
+        - {x: 121, y: 31}
+        - {x: 121, y: 50}
+        - {x: 120, y: 70}
+        - {x: 98, y: 100}
+        - {x: 59, y: 109}
+        - {x: 77, y: 191}
+        - {x: 74, y: 206}
+        - {x: 23, y: 219}
+        - {x: -23, y: 219}
+        - {x: -56, y: 213}
+        - {x: -73, y: 199}
+        - {x: -67, y: 156}
+        - {x: -84, y: 109}
+        - {x: -123, y: 77}
+        - {x: -123, y: -55}
+        - {x: -98, y: -83}
+        - {x: -113, y: -112}
+        - {x: -107, y: -138}
+        - {x: -84, y: -168}
+        - {x: -90, y: -212}
+        - {x: -77, y: -231}
+        - {x: -24, y: -231}
+        - {x: -7, y: -221}
+        - {x: -6, y: -179}
+        - {x: 23, y: -228}
+    - name: baconbottom sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 17, y: -226}
+        - {x: 33, y: -230}
+        - {x: 87, y: -230}
+        - {x: 101, y: -210}
+        - {x: 115, y: -139}
+        - {x: 118, y: -95}
+        - {x: 102, y: -79}
+        - {x: 131, y: -46}
+        - {x: 131, y: -6}
+        - {x: 126, y: 16}
+        - {x: 121, y: 75}
+        - {x: 111, y: 98}
+        - {x: 65, y: 116}
+        - {x: 82, y: 204}
+        - {x: 39, y: 221}
+        - {x: -41, y: 221}
+        - {x: -75, y: 203}
+        - {x: -70, y: 158}
+        - {x: -88, y: 104}
+        - {x: -110, y: 97}
+        - {x: -123, y: 55}
+        - {x: -123, y: -55}
+        - {x: -96, y: -77}
+        - {x: -108, y: -85}
+        - {x: -112, y: -133}
+        - {x: -98, y: -149}
+        - {x: -86, y: -157}
+        - {x: -90, y: -213}
+        - {x: -74, y: -230}
+        - {x: -20, y: -230}
+        - {x: -9, y: -214}
+        - {x: -7, y: -176}
+        - {x: 18, y: -176}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
