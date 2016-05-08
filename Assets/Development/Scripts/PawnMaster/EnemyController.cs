@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour {
 	public int enemy_type;
 	public int move_type = 5;
 	public int lives = 1;
+    public int bullet_fire_rate = 20;
 	#endregion
 	
 	#region Protected Variables
@@ -15,8 +16,10 @@ public class EnemyController : MonoBehaviour {
 	
 	#region Private Variable
 	private CommandManager m_cmanager;
-    private int m_bulletTimer;
     private BulletPool m_bulletPool;
+    private BulletPool m_sineBulletPool;
+    private int bulletState = 0;
+    private int m_bulletTimer = 0;
 	#endregion
 	
 	#region Accessors
@@ -26,7 +29,8 @@ public class EnemyController : MonoBehaviour {
 	void Start ()
 	{
 		m_cmanager = Managers.GetInstance().GetCommandManager();
-        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(20, Managers.GetInstance().GetGameProperties().enemyBulletPrefab);
+        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(100, Managers.GetInstance().GetGameProperties().enemyBulletPrefab);
+        m_sineBulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(40, Managers.GetInstance().GetGameProperties().sineEnemyBulletPrefab);
 	}
 	
 	void Update ()
@@ -43,7 +47,7 @@ public class EnemyController : MonoBehaviour {
             {
                 m_bulletTimer++;
 
-                if (m_bulletTimer == 10)
+                if (m_bulletTimer == bullet_fire_rate)
                 {
                     m_bulletTimer = 0;
                     fireBullets();
@@ -82,14 +86,42 @@ public class EnemyController : MonoBehaviour {
 		switch(enemy_type)
 		{
 		case 1: //v-type, fire three streams of bullets, two on both downward diagonals and one straight down
-            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.2f));
-            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.2f, -0.2f));
-            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.2f, -0.2f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, -0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, -0.1f));
 			break;
 		case 2: //o-type, fire eight streams of bullets, four in each cardinal direction and four in each diagonal
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, 0));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, 0));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, 0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, 0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, -0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, 0.1f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, -0.1f));
 			break;
 		case 3: //m-type, fire five streams of bullets, two on both downward diagonals and three downward
+            if (bulletState == 0)
+            {
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, -0.1f));
+                bulletState = 1;
+            }
+            else if (bulletState == 1)
+            {
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
+                bulletState = 2;
+            }
+            else if (bulletState == 2)
+            {
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
+                bulletState = 0;
+            }
 			break;
+        case 4: //m-type, fire five streams of bullets, two on both downward diagonals and three downward
+
+            break;
 		}
 	}
 	
