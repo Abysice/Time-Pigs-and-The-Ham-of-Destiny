@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour {
 	#endregion
 	
 	#region Protected Variables
-	protected float m_TTWTimer = 200;
+	protected float m_TTWTimer = 100;
 	#endregion
 	
 	#region Private Variable
@@ -44,14 +44,14 @@ public class EnemyManager : MonoBehaviour {
 	{
 		if (!m_cmanager.GetTimeState())
 		{
-			if (m_TTWTimer > 0 || m_TTWTimer == 200)
+			if (m_TTWTimer > 0)
 			{
 				m_TTWTimer--;
 				Debug.Log (m_TTWTimer);
 				
 				if (m_TTWTimer <= 0)
 				{
-					m_TTWTimer = 100;
+					m_TTWTimer = 500;
 					executeCurrentWave();
 				}
 			}
