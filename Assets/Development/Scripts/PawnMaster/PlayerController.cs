@@ -71,7 +71,6 @@ public class PlayerController : MonoBehaviour {
 			if (hit)
 			{
 				float distance = Mathf.Abs(hit.point.y - transform.position.y);
-				Debug.Log(distance);
 				if (distance <= 0.1f && m_inputVec.y <= 0)
 					m_inputVec.y = 0;
 			}
@@ -79,7 +78,6 @@ public class PlayerController : MonoBehaviour {
 			if (hit)
 			{
 				float distance = Mathf.Abs(hit.point.y - transform.position.y);
-				Debug.Log(distance);
 				if (distance <= 0.1f && m_inputVec.y >= 0)
 					m_inputVec.y = 0;
 			}
@@ -87,7 +85,6 @@ public class PlayerController : MonoBehaviour {
 			if (hit)
 			{
 				float distance = Mathf.Abs(hit.point.x - transform.position.x);
-				Debug.Log(distance);
 				if (distance <= 0.1f && m_inputVec.x <= 0)
 					m_inputVec.x = 0;
 			}
@@ -95,7 +92,6 @@ public class PlayerController : MonoBehaviour {
 			if (hit)
 			{
 				float distance = Mathf.Abs(hit.point.x - transform.position.x);
-				Debug.Log(distance);
 				if (distance <= 0.1f && m_inputVec.x >= 0)
 					m_inputVec.x = 0;
 			} 
