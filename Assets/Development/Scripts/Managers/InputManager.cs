@@ -13,6 +13,12 @@ public class InputManager : MonoBehaviour {
 
 	#region Public Variables
 	public bool m_timeFlowing = false;
+
+	public float p1_LTrigger;
+	public float p1_RTrigger;
+	public int p1_ButtonA;
+	public float p1_LStickX;
+	public float p1_LStickY;
 	#endregion
 
 	#region Protected Variables
@@ -25,23 +31,12 @@ public class InputManager : MonoBehaviour {
 	GamePadState state1;
 	GamePadState prevState1;
 
-	bool player2IndexSet = false;
-	PlayerIndex player2Index;
-	GamePadState state2;
-	GamePadState prevState2;
-
-
-	private Vector2 m_MouseClickInWorldCoords = Vector2.zero;
 	private CommandManager m_cmanager;
 	private GUIManager m_guimanager;
 	
 	#endregion
 
 	#region Accessors
-	public Vector2 MouseInWorldCoords
-	{
-		get { return m_MouseClickInWorldCoords; }
-	}
 	#endregion
 
 	#region Unity Defaults
@@ -64,11 +59,6 @@ public class InputManager : MonoBehaviour {
 	#region Public Methods
 	public void Player1Control()
 	{
-		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
-		{
-			m_MouseClickInWorldCoords = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		}
-
 		// Find a PlayerIndex, for a single player game
 		// Will find the first controller that is connected ans use it
 		if (!player1IndexSet || !prevState1.IsConnected)
@@ -86,16 +76,13 @@ public class InputManager : MonoBehaviour {
 		prevState1 = state1;
 		state1 = GamePad.GetState(player1Index);
 
-		// Detect if a button was pressed this frame
-		if (prevState1.Buttons.A == ButtonState.Released && state1.Buttons.A == ButtonState.Pressed)
-		{
-			Debug.Log("BUTTON PUSHED");
-		}
-		// Detect if a button was released this frame
-		if (prevState1.Buttons.A == ButtonState.Pressed && state1.Buttons.A == ButtonState.Released)
-		{
-			Debug.Log("BUTTON RELEASED");
-		}
+
+		p1_LTrigger = state1.Triggers.Left;
+		p1_RTrigger = state1.Triggers.Right;
+		p1_ButtonA = (int)state1.Buttons.A;
+		p1_LStickX = state1.ThumbSticks.Left.X;
+		p1_LStickY = state1.ThumbSticks.Left.Y;
+     
 
 	}
 	#endregion
