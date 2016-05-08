@@ -17,7 +17,7 @@ public abstract class Bullet : MonoBehaviour
     {
         if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
         {
-            if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
+            if (m_cmanager.GetTimer() > 0.0f ) // do nothing this frame
             {
                 return;
             }
@@ -30,7 +30,7 @@ public abstract class Bullet : MonoBehaviour
     {
         if (!m_cmanager.GetTimeState())
         {
-            if (m_TTLTimer > 0)
+			if (m_TTLTimer > 0 && !Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead)
             {
                 m_TTLTimer--;
 

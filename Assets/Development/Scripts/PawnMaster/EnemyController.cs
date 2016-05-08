@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour {
 		if (isAlive ())
 		{
 			moveCycle();
-            if (!m_cmanager.GetTimeState())
+            if (!m_cmanager.GetTimeState() && !Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead)
             {
                 m_bulletTimer++;
 
@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour {
                     fireBullets();
                 }
 
-                if (m_TTLTimer > 0)
+                if (m_TTLTimer > 0 )
                 {
                     m_TTLTimer--;
 

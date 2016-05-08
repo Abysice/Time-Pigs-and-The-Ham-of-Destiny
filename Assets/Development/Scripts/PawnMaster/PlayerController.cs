@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
 	public bool m_isAlive;
 	private const float MOVE_SPEED = 0.075f;
 	private GameObject m_explosion;
-
+	public bool m_stillDead;
 	#endregion
 
 	#region Protected Variables
@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
     private BulletPool m_bulletPool;
 	private float m_moveTimer;
 	private SpriteRenderer m_sprite;
+
+	private int m_deathCounter;
 	#endregion
 
 	#region Accessors
@@ -40,7 +42,8 @@ public class PlayerController : MonoBehaviour {
 		m_isAlive = true;
 		m_explosion = transform.GetChild(0).gameObject;
 		m_sprite = GetComponent<SpriteRenderer>();
-
+		m_deathCounter = 0;
+		m_stillDead = false;
 	}
 	//runs every frame
 	public void Update()
@@ -126,14 +129,32 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnCollisionStay2D(Collision2D collisionInfo)
 	{
-		if (m_isAlive == false || collisionInfo.gameObject.CompareTag("p_bullet")) //if I'm already dead
+		if (m_isAlive == false || collisionInfo.gameObject.CompareTag("p_bullet") || m_cmanager.GetTimeState()) //if I'm already dead
 			return;
 
+		m_deathCounter++;
 		m_cmanager.AddPlayerDeathCommand(m_sprite, m_explosion);
-		
+
+		StartCoroutine(CheckIfStillDead(m_deathCounter));
+
 	}
 
 
+	IEnumerator CheckIfStillDead(int deaths)
+	{
+		yield return new WaitForSeconds(1.5f);
+
+		if (m_deathCounter == deaths && m_isAlive == false)
+		{
+			m_stillDead = true;
+		}
+		else
+		{
+			m_stillDead = false;
+		}
+
+		yield return null;
+	}
 	#endregion
 
 	#region Public Methods

@@ -32,6 +32,7 @@ public class DisableComponentCommand : CommandBase {
 	public override void Undo()
 	{
 		m_comp.gameObject.GetComponent<PlayerController>().m_isAlive = true;
+		m_comp.gameObject.GetComponent<PlayerController>().m_stillDead = false;
 		m_comp.enabled = true;
 		m_explosion.SetActive(false);
 	}
