@@ -34,4 +34,25 @@ public class GameProperties : MonoBehaviour {
     public GameObject playerBulletPrefab;
     public GameObject enemyBulletPrefab;
     public GameObject sineEnemyBulletPrefab;
+
+
+
+	////////////////////////////
+	//LAZY FUNCS
+
+	public void StartGame()
+	{
+		Managers.GetInstance().GetGameStateManager().ChangeGameState(Enums.GameStateNames.GS_02_LOADING);
+	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
+
+	public void RestartGame()
+	{
+		Managers.GetInstance().GetGameStateManager().ChangeGameState(Enums.GameStateNames.GS_01_MENU);
+	}
+
 }

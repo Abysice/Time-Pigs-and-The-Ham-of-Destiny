@@ -12,12 +12,14 @@ public class GameStateMenu : GameStateBase
 	public override void EnterState(Enums.GameStateNames p_prevState)
 	{
 		Debug.Log("Entered Menu State");
+		if (p_prevState != Enums.GameStateNames.GS_00_NULL)
+			Application.LoadLevel(Managers.GetInstance().GetGameProperties().MenuScene);
 	}
 
 	public override void UpdateState()
 	{
 		//Put some sort of GUI event to get to this
-		m_gameStateManager.ChangeGameState(Enums.GameStateNames.GS_02_LOADING);
+		//m_gameStateManager.ChangeGameState(Enums.GameStateNames.GS_02_LOADING);
 	}
 
 	public override void ExitState(Enums.GameStateNames p_nextState)
