@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour {
 	#endregion
 
 	#region Private Variables
-	private float CAM_SPEED = 0.01f;
+	private float CAM_SPEED = 0.03f;
 	private GameObject m_player = Managers.GetInstance().GetLoadManager().playerObject;
 	private CommandManager m_cmanager = Managers.GetInstance().GetCommandManager();
 	#endregion

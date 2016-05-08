@@ -53,7 +53,8 @@ public class CommandManager : MonoBehaviour
 	//runs every frame
 	public void Update()
 	{
-		ClampTimers();
+		//ClampTimers();
+		ClampTimersKeyboard();
 		///////////////////////////////////////////////////////////////////
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
@@ -105,7 +106,7 @@ public class CommandManager : MonoBehaviour
 	{
 		if (!m_isRewinding)
 		{
-			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.position, m_destination));
+			m_currentFrame.Value.AddFirst(new Move_Command(p_actor, p_actor.transform.localPosition, m_destination));
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		}
 	}
@@ -186,10 +187,17 @@ public class CommandManager : MonoBehaviour
 	#region Private Methods
 	private void HangOnFrame()
 	{
+		if (m_currentFrame.Value.Count == 0)
+		{
+			return;
+		}
 		foreach (CommandBase com in m_currentFrame.Value)
 		{
 			if (com is Move_Command)
+			{
 				com.Execute();
+			}
+			
 		}
 	}
 
@@ -202,7 +210,7 @@ public class CommandManager : MonoBehaviour
 		}
 	}
 
-	private void ClampTimers()
+	private void ClampTimersKeyboard()
 	{
 		//speeds up time
 		//CHANGE ME TO XBOX TRIGGER VALUE LATER
@@ -211,20 +219,39 @@ public class CommandManager : MonoBehaviour
 			m_timer -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
 			if (m_timer <= 0f)
 				m_timer = 0f;
-			if (m_timer > 0.05f)
-				m_timer = 0.05f;
+			if (m_timer > 0.03f)
+				m_timer = 0.03f;
 		}
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			m_timer += 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
 			if (m_timer <= 0f)
 				m_timer = 0f;
-			if (m_timer > 0.05f)
-				m_timer = 0.05f;
+			if (m_timer > 0.03f)
+				m_timer = 0.03f;
 		}
 		//Debug.Log(m_timer);
 
 		if (Input.GetKey(KeyCode.Y))
+			m_isRewinding = true;
+		else
+			m_isRewinding = false;
+	}
+
+	private void ClampTimers()
+	{
+		float l_temp = Mathf.Max(m_inp.p1_LTrigger, m_inp.p1_RTrigger);
+
+		if (l_temp > 0.05f)
+		{
+			m_timer = 0.03f - (l_temp * 0.01f * 3.0f); //MAX_TIMER = 0.1 - (Trigger/100.0f)-
+			if (m_timer <= 0f)
+				m_timer = 0f;
+			if (m_timer > 0.03f)
+				m_timer = 0.03f;
+		}
+
+		if (m_inp.p1_LTrigger > 0.05f && (m_inp.p1_LTrigger > m_inp.p1_RTrigger))
 			m_isRewinding = true;
 		else
 			m_isRewinding = false;

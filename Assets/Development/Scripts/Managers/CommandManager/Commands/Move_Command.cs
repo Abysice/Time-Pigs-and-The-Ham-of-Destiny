@@ -22,13 +22,12 @@ public class Move_Command : CommandBase {
 
 	public override void Execute()
 	{
-		//m_actor.transform.position = m_endPos;
-		m_actor.transform.position = Vector3.MoveTowards(m_actor.transform.position, m_endPos, 0.1f);
+		m_actor.transform.localPosition = m_endPos;
 	}
+
 
 	public override void Undo()
 	{
-		//m_actor.transform.position = m_startPos;
-		m_actor.transform.position = Vector3.MoveTowards(m_actor.transform.position, m_startPos, 0.1f);
+		m_actor.transform.localPosition = m_startPos;
 	}
 }

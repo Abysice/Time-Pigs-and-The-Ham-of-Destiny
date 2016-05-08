@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	#region Public Variables
 	private GameObject m_camera;
 
-	private const float MOVE_SPEED = 0.1f;
+	private const float MOVE_SPEED = 0.075f;
 	#endregion
 
 	#region Protected Variables
@@ -66,6 +66,14 @@ public class PlayerController : MonoBehaviour {
 			{
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
+			
+
+			//CONTROLLER CONTROLS
+			//Vector3 m_inputVec = Vector3.zero;
+			//m_inputVec.x = m_inp.p1_LStickX;
+			//m_inputVec.y = m_inp.p1_LStickY;
+
+			//m_inputVec *= MOVE_SPEED;
 
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
 			if (hit)
@@ -96,10 +104,10 @@ public class PlayerController : MonoBehaviour {
 					m_inputVec.x = 0;
 			} 
 	
-	
-			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
+			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.localPosition + m_inputVec);
 
-			Shoot();
+			//Shoot();
+			ShootKeyBoard();
 		}
 	}
 	#endregion
@@ -112,6 +120,24 @@ public class PlayerController : MonoBehaviour {
 
 	#region Private Methods
 	public void Shoot()
+	{
+		if (m_moveTimer > 0.0f) // do nothing this frame
+		{
+			m_moveTimer -= Time.deltaTime;
+			return;
+		}
+		else if (m_moveTimer <= 0.0f)
+		{
+			m_moveTimer = 0.1f;
+		}
+
+		if (m_inp.p1_ButtonA == 0)
+		{
+			m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, 0.2f));
+		}
+	}
+
+	public void ShootKeyBoard()
 	{
 		if (m_moveTimer > 0.0f) // do nothing this frame
 		{
