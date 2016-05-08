@@ -15,11 +15,11 @@ public class BossTakeDamage_Command : CommandBase
 
     public override void Execute()
     {
-        m_actor.GetComponent<BossController>().health--;
+        m_actor.GetComponent<BossController>().DecreaseHealth();
     }
 
     public override void Undo()
     {
-        m_actor.GetComponent<BossController>().health++;
+        m_actor.GetComponent<BossController>().IncreaseHealth();
     }
 }
