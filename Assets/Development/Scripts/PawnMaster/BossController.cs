@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossController : MonoBehaviour {
+public class BossController : EnemyController
+{
     #region Public Variables
     public bool firing = false; //whether or not the enemy is firing bullets
     public float move_speed = 0.05f;
     public int move_type = 5;
+    public int lives = 1;
     public int health = 100;
     public int bullet_fire_rate = 20;
     #endregion
@@ -19,21 +21,24 @@ public class BossController : MonoBehaviour {
     private BulletPool m_sineBulletPool;
     private int bulletState = 0;
     private int m_bulletTimer = 0;
-    private int bulletPattern = 1;
+    private int m_bulletpattern = 0;
+    private int m_enemyState = 0;
+    private EnemyPool m_enemyManager;
+    private float m_stateTimer = 0;
     #endregion
 
     #region Accessors
     #endregion
 
     #region Unity Defaults
-    void Start()
+    public override void Start()
     {
         m_cmanager = Managers.GetInstance().GetCommandManager();
         m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(100, Managers.GetInstance().GetGameProperties().enemyBulletPrefab);
         m_sineBulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(40, Managers.GetInstance().GetGameProperties().sineEnemyBulletPrefab);
     }
 
-    void Update()
+    public override void Update()
     {
         if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
         {
@@ -52,6 +57,14 @@ public class BossController : MonoBehaviour {
                     m_bulletTimer = 0;
                     fireBullets();
                 }
+
+                m_stateTimer++;
+
+                if (m_stateTimer == 100)
+                {
+                    m_stateTimer = 0;
+                    //ChangeStates();
+                }
             }
             else
             {
@@ -59,27 +72,33 @@ public class BossController : MonoBehaviour {
                 {
                     m_bulletTimer--;
                 }
+
+                if (m_stateTimer > 0)
+                {
+                    m_stateTimer--;
+                }
             }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "p_bullet")
         {
             health--;
+            other.GetComponent<Bullet>().DestroyBulletCommand();
+
+            if (health < 0)
+                m_cmanager.AddDestroyEnemyCommand(gameObject, transform.position);
         }
 
     }
     #endregion
 
     #region Public Methods
-    public bool isAlive()
+    public override void ActivateEnemy()
     {
-        if (health > 0)
-            return true;
-        else
-            return false;
+        gameObject.SetActive(true);
     }
     #endregion
 
@@ -90,9 +109,9 @@ public class BossController : MonoBehaviour {
     /// <summary>
     /// Fires bullets according to a pattern determined by it's enemy type.
     /// </summary>
-    private void fireBullets()
+    public override void fireBullets()
     {
-        switch (bulletPattern)
+        switch (m_bulletpattern)
         {
             case 1: //v-type, fire three streams of bullets, two on both downward diagonals and one straight down
                 m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
@@ -152,31 +171,19 @@ public class BossController : MonoBehaviour {
     /// <summary>
     /// Moves the enemy along the screen according to its movement type, which is tied to its enemy type.
     /// </summary>
-    private void moveCycle()
+    public override void moveCycle()
     {
         Vector3 move = Vector3.zero;
-        switch (move_type)
+        switch (m_enemyState)
         {
-            case 1: //v-type, move horizontally right to left across the screen
-                move += Vector3.right * move_speed;
+            case 0: //first, the boss will move down
+                move += Vector3.down * move_speed;
                 break;
-            case 2: //v-type, move horizontally left to right across the screen
+            case 1: //v-type, move horizontally left to right across the screen
                 move += Vector3.left * move_speed;
                 break;
-            case 3: //o-type 1, move down the screen along the right diagonal
-                move += (Vector3.down + Vector3.right) * move_speed;
-                break;
-            case 4: //o-type 1, move down the screen along the left diagonal
-                move += (Vector3.down + Vector3.left) * move_speed;
-                break;
-            case 5: //o-type 1, move up the screen along the right diagonal
-                move += (Vector3.up + Vector3.right) * move_speed;
-                break;
-            case 6: //o-type 1, move up the screen along the left diagonal
-                move += (Vector3.up + Vector3.left) * move_speed;
-                break;
-            case 7: //m-type, move vertically down the screen
-                move += Vector3.down * move_speed;
+            case 2: //o-type 1, move right
+                move += -Vector3.left * move_speed;
                 break;
         }
         m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + move);

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpawnController : MonoBehaviour {
 
-	public GameObject spawned_object;
+	//public GameObject spawned_object;
 	public int spawned_object_type;
 	private bool spawn = false;
 	private CommandManager m_cmanager;
