@@ -9,11 +9,11 @@ public class EnemyManager : MonoBehaviour {
 	#endregion
 	
 	#region Protected Variables
+	protected float m_TTWTimer = 200;
 	#endregion
 	
 	#region Private Variable
 	private int current_wave = 0; //begins at wave 0
-	public GameObject[] wave;
 	private CommandManager m_cmanager;
 	#endregion
 	
@@ -26,28 +26,44 @@ public class EnemyManager : MonoBehaviour {
 		m_cmanager = Managers.GetInstance().GetCommandManager();
 	}
 	
-	void Update ()
+	public void Update ()
 	{
-		if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
-			return;
-		}	
-			
-		if (current_wave == 0)
-		{
-			wave = GameObject.FindGameObjectsWithTag("0");
-			foreach (GameObject spawner in wave)
+			if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
 			{
-				SpawnController cont = spawner.GetComponent<SpawnController>();
-				cont.allowSpawn();
-			}
-			current_wave++;
+				return;
+			}	
+			waveCount();
 		}
 	}
 	#endregion
 	
 	#region Public Methods
-	public void SpawnEnemy(int type, Vector3 pos)
+	public void waveCount()
+	{
+		if (!m_cmanager.GetTimeState())
+		{
+			if (m_TTWTimer > 0 || m_TTWTimer == 200)
+			{
+				m_TTWTimer--;
+				Debug.Log (m_TTWTimer);
+				
+				if (m_TTWTimer <= 0)
+				{
+					m_TTWTimer = 100;
+					executeCurrentWave();
+				}
+			}
+		}
+		else
+		{
+			m_TTWTimer++;
+		}
+		Debug.Log (m_TTWTimer);
+	}
+	
+	public void SpawnEnemy(int type, Vector3 pos, string wave_num)
 	{
 		switch(type)
 		{
@@ -73,6 +89,7 @@ public class EnemyManager : MonoBehaviour {
 			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().D, pos, Managers.GetInstance().GetGameProperties().D.transform.rotation);
 			break;
 		}
+		enemyObject.tag = wave_num;
 	}
 	#endregion
 	
@@ -80,5 +97,33 @@ public class EnemyManager : MonoBehaviour {
 	#endregion
 	
 	#region Private Methods
+	/// <summary>
+	/// Instantiates the enemies for the current wave and sets the timer for the next wave to begin.
+	/// </summary>
+	private void executeCurrentWave()
+	{
+		string cur;
+		GameObject[] wave;
+		
+		if (current_wave > 0) //if at least one wave has happened prior, perform cleanup
+		{
+			cur = (current_wave - 1).ToString();
+			wave = GameObject.FindGameObjectsWithTag(cur);
+			foreach (GameObject thing in wave)
+			{
+				thing.gameObject.SetActive(false);
+			}
+		}
+		
+		cur = current_wave.ToString();
+		wave = GameObject.FindGameObjectsWithTag(cur);
+		foreach (GameObject spawner in wave)
+		{
+			SpawnController cont = spawner.GetComponent<SpawnController>();
+			cont.allowSpawn();
+		}
+		if (current_wave < 9)
+			current_wave++;
+	}
 	#endregion
 }
