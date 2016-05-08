@@ -8,7 +8,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	#region Public Variables
-
+	private GameObject m_camera;
 
 	private const float MOVE_SPEED = 0.1f;
 	#endregion
@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour {
 	//runs every frame
 	public void Update()
 	{
+		if (m_camera == null)
+			m_camera = Managers.GetInstance().GetLoadManager().cameraObject;
 
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
@@ -65,6 +67,36 @@ public class PlayerController : MonoBehaviour {
 				m_inputVec += (Vector3.left * MOVE_SPEED);
 			}
 
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
+			if (hit)
+			{
+				float distance = Mathf.Abs(hit.point.y - transform.position.y);
+				if (distance <= 0.1f && m_inputVec.y <= 0)
+					m_inputVec.y = 0;
+			}
+			hit = Physics2D.Raycast(transform.position, Vector2.up);
+			if (hit)
+			{
+				float distance = Mathf.Abs(hit.point.y - transform.position.y);
+				if (distance <= 0.1f && m_inputVec.y >= 0)
+					m_inputVec.y = 0;
+			}
+			hit = Physics2D.Raycast(transform.position, Vector2.left);
+			if (hit)
+			{
+				float distance = Mathf.Abs(hit.point.x - transform.position.x);
+				if (distance <= 0.1f && m_inputVec.x <= 0)
+					m_inputVec.x = 0;
+			}
+			hit = Physics2D.Raycast(transform.position, Vector2.right);
+			if (hit)
+			{
+				float distance = Mathf.Abs(hit.point.x - transform.position.x);
+				if (distance <= 0.1f && m_inputVec.x >= 0)
+					m_inputVec.x = 0;
+			} 
+	
+	
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
 
 			Shoot();
