@@ -168,10 +168,17 @@ public class CommandManager : MonoBehaviour
 	#region Private Methods
 	private void HangOnFrame()
 	{
+		if (m_currentFrame.Value.Count == 0)
+		{
+			return;
+		}
 		foreach (CommandBase com in m_currentFrame.Value)
 		{
 			if (com is Move_Command)
+			{
 				com.Execute();
+			}
+			
 		}
 	}
 
@@ -193,16 +200,16 @@ public class CommandManager : MonoBehaviour
 			m_timer -= 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
 			if (m_timer <= 0f)
 				m_timer = 0f;
-			if (m_timer > 0.05f)
-				m_timer = 0.05f;
+			if (m_timer > 0.03f)
+				m_timer = 0.03f;
 		}
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			m_timer += 0.01f; //MAX_TIMER = 0.1 - (Trigger/100.0f)
 			if (m_timer <= 0f)
 				m_timer = 0f;
-			if (m_timer > 0.05f)
-				m_timer = 0.05f;
+			if (m_timer > 0.03f)
+				m_timer = 0.03f;
 		}
 		//Debug.Log(m_timer);
 

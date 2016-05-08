@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	#region Public Variables
 	private GameObject m_camera;
 
-	private const float MOVE_SPEED = 0.1f;
+	private const float MOVE_SPEED = 0.075f;
 	#endregion
 
 	#region Protected Variables
@@ -95,7 +95,6 @@ public class PlayerController : MonoBehaviour {
 				if (distance <= 0.1f && m_inputVec.x >= 0)
 					m_inputVec.x = 0;
 			} 
-	
 	
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.position + m_inputVec);
 
