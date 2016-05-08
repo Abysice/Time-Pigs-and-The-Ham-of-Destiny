@@ -76,7 +76,7 @@ public class CommandManager : MonoBehaviour
 		{
 			if (!m_isRewinding)
 			{
-				if (MAGIC_TIMER == m_timer)
+				if (MAGIC_TIMER == m_timer && !Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead)
 				{
 					AddNewFrame();
 				}

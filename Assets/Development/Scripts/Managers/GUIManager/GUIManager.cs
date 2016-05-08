@@ -16,9 +16,7 @@ public class GUIManager : MonoBehaviour {
 	#endregion
 
 	#region Private Variables
-	private GameObject m_canvasObject;
-	private CommandManager m_cmanager;
-	private bool m_init = false;
+	public GameObject m_canvas;
 	#endregion
 
 	#region Accessors
@@ -27,20 +25,24 @@ public class GUIManager : MonoBehaviour {
 	#region Unity Defaults
 	public void Awake()
 	{
-
+		m_canvas = Managers.GetInstance().GetGameProperties().warningcanvas;
 	}
 
 	//initialization
 	public void Start()
 	{
-		m_cmanager = Managers.GetInstance().GetCommandManager();
+
 	}
 	//runs every frame
 	public void Update()
 	{
-		if (!m_init)
-			return;
-
+		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
+		{
+			if (Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead)
+				m_canvas.SetActive(true);
+			else
+				m_canvas.SetActive(false);
+		}
 	}
 	#endregion
 
@@ -48,7 +50,9 @@ public class GUIManager : MonoBehaviour {
 	//Spawn the ingame GUI
 	public void LoadGameGUI()
 	{
-
+	}
+	public void UnLoadGameGUI()
+	{
 	}
 
 

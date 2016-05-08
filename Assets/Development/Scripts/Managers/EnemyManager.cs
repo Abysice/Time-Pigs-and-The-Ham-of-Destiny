@@ -35,7 +35,6 @@ public class EnemyManager : MonoBehaviour {
 			{
 				return;
 			}
-            Debug.Log(m_TTWTimer);
 
 			waveCount();
 		}
@@ -47,7 +46,7 @@ public class EnemyManager : MonoBehaviour {
 	{
 		if (!m_cmanager.GetTimeState())
 		{
-			if (m_TTWTimer > 0)
+			if (m_TTWTimer > 0 && !Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead)
 			{
 				m_TTWTimer--;
 				

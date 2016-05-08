@@ -36,7 +36,7 @@ public class GameProperties : MonoBehaviour {
     public GameObject enemyBulletPrefab;
     public GameObject sineEnemyBulletPrefab;
 
-
+	public GameObject warningcanvas;
 
 	////////////////////////////
 	//LAZY FUNCS

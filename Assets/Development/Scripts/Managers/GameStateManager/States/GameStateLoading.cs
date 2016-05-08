@@ -26,7 +26,6 @@ public class GameStateLoading : GameStateBase
 	{
 		Managers.GetInstance().GetLoadManager().SpawnPlayer();
 		Managers.GetInstance().GetLoadManager().SpawnCamera();
-		Managers.GetInstance().GetGUIManager().LoadGameGUI();
         Managers.GetInstance().GetEnemyPoolManager().GenerateEnemyPools();
 	}
 }
