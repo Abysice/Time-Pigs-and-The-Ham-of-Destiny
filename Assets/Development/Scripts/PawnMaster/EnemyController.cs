@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour {
 	
 	#region Private Variable
 	private CommandManager m_cmanager;
+    private int m_bulletTimer;
+    private BulletPool m_bulletPool;
 	#endregion
 	
 	#region Accessors
@@ -24,6 +26,7 @@ public class EnemyController : MonoBehaviour {
 	void Start ()
 	{
 		m_cmanager = Managers.GetInstance().GetCommandManager();
+        m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(20, Managers.GetInstance().GetGameProperties().enemyBulletPrefab);
 	}
 	
 	void Update ()
@@ -36,7 +39,23 @@ public class EnemyController : MonoBehaviour {
 		if (isAlive ())
 		{
 			moveCycle();
-			//fireBullets();
+            if (!m_cmanager.GetTimeState())
+            {
+                m_bulletTimer++;
+
+                if (m_bulletTimer == 10)
+                {
+                    m_bulletTimer = 0;
+                    fireBullets();
+                }
+            }
+            else
+            {
+                if (m_bulletTimer > 0)
+                {
+                    m_bulletTimer--;
+                }
+            }
 		}
 	}
 	#endregion
@@ -63,6 +82,9 @@ public class EnemyController : MonoBehaviour {
 		switch(enemy_type)
 		{
 		case 1: //v-type, fire three streams of bullets, two on both downward diagonals and one straight down
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.2f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.2f, -0.2f));
+            m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.2f, -0.2f));
 			break;
 		case 2: //o-type, fire eight streams of bullets, four in each cardinal direction and four in each diagonal
 			break;

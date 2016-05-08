@@ -32,4 +32,5 @@ public class GameProperties : MonoBehaviour {
 	public GameObject R2L;
 	
     public GameObject playerBulletPrefab;
+    public GameObject enemyBulletPrefab;
 }
