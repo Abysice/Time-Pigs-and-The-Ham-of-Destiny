@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour {
 	#region Private Variable
 	private int current_wave = 0; //begins at wave 0
 	private CommandManager m_cmanager;
+    private GameObject[] spawnList;
 	#endregion
 	
 	#region Accessors
@@ -33,7 +34,9 @@ public class EnemyManager : MonoBehaviour {
 			if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
 			{
 				return;
-			}	
+			}
+            Debug.Log(m_TTWTimer);
+
 			waveCount();
 		}
 	}
@@ -50,14 +53,31 @@ public class EnemyManager : MonoBehaviour {
 				
 				if (m_TTWTimer <= 0)
 				{
-					m_TTWTimer = 500;
-					executeCurrentWave();
+					m_TTWTimer = 400;
+                    executeCurrentWave();
+                    current_wave++;
 				}
 			}
 		}
 		else
 		{
 			m_TTWTimer++;
+
+            if (current_wave == 0)
+            {
+                if (m_TTWTimer >= 100)
+                {
+                    m_TTWTimer = 100;
+                }
+            }
+            else
+            {
+                if (m_TTWTimer == 400)
+                {
+                    m_TTWTimer = 0;
+                    current_wave--;
+                }
+            }
 		}
 	}
 	
@@ -78,6 +98,17 @@ public class EnemyManager : MonoBehaviour {
 	/// </summary>
 	private void executeCurrentWave()
 	{
+        Debug.Log("SPAWN!" + current_wave);
+
+        if (spawnList == null)
+            spawnList = Camera.main.transform.GetComponent<SpawnList>().m_spawnList;
+
+        foreach (SpawnController spawner in spawnList[current_wave].GetComponentsInChildren<SpawnController>())
+        {
+            spawner.allowSpawn();
+        }
+
+        /*
 		string cur;
 		GameObject[] wave;
 		
@@ -98,8 +129,9 @@ public class EnemyManager : MonoBehaviour {
 			SpawnController cont = spawner.GetComponent<SpawnController>();
 			cont.allowSpawn();
 		}
-		if (current_wave < 9)
-			current_wave++;
+         * */
+		//if (current_wave < 9)
+			//current_wave++;
 	}
 	#endregion
 }

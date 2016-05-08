@@ -21,20 +21,21 @@ public class EnemyController : MonoBehaviour {
     private int bulletState = 0;
     private int m_bulletTimer = 0;
     private EnemyPool m_enemyManager;
+    protected float m_TTLTimer = 400;
 	#endregion
 	
 	#region Accessors
 	#endregion
 	
 	#region Unity Defaults
-	void Start ()
+	public virtual void Start ()
 	{
 		m_cmanager = Managers.GetInstance().GetCommandManager();
         m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(100, Managers.GetInstance().GetGameProperties().enemyBulletPrefab);
         m_sineBulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(40, Managers.GetInstance().GetGameProperties().sineEnemyBulletPrefab);
 	}
 	
-	void Update ()
+	public virtual void Update ()
 	{
 		if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
 		{
@@ -53,6 +54,16 @@ public class EnemyController : MonoBehaviour {
                     m_bulletTimer = 0;
                     fireBullets();
                 }
+
+                if (m_TTLTimer > 0)
+                {
+                    m_TTLTimer--;
+
+                    if (m_TTLTimer <= 0)
+                    {
+                        m_cmanager.AddDestroyEnemyCommand(gameObject, transform.position);
+                    }
+                }
             }
             else
             {
@@ -60,11 +71,13 @@ public class EnemyController : MonoBehaviour {
                 {
                     m_bulletTimer--;
                 }
+
+                m_TTLTimer++;
             }
 		}
 	}
 	
-	void OnTriggerEnter2D(Collider2D other)
+	public virtual void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "p_bullet")
 		{
@@ -113,7 +126,7 @@ public class EnemyController : MonoBehaviour {
 	/// <summary>
 	/// Fires bullets according to a pattern determined by it's enemy type.
 	/// </summary>
-	private void fireBullets()
+	public virtual void fireBullets()
 	{
 		switch(enemy_type)
 		{
@@ -175,7 +188,7 @@ public class EnemyController : MonoBehaviour {
 	/// <summary>
 	/// Moves the enemy along the screen according to its movement type, which is tied to its enemy type.
 	/// </summary>
-	private void moveCycle()
+	public virtual void moveCycle()
 	{
 		Vector3 move = Vector3.zero;
 		switch(move_type)
