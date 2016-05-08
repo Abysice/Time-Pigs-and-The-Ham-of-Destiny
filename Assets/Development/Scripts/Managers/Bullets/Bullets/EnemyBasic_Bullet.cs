@@ -24,6 +24,7 @@ public class EnemyBasic_Bullet : Bullet {
         m_cmanager.AddMoveCommand(gameObject, new Vector2(transform.position.x, transform.position.y) + m_bulletDirection);
     }
 
+    /*
     void OnTriggerEnter(Collider p_collider)
     {
         if (p_collider.tag == "Player")
@@ -31,6 +32,7 @@ public class EnemyBasic_Bullet : Bullet {
             m_cmanager.AddDestroyBulletCommand(gameObject, transform.position);
         }
     }
+    */
 
     public override void ActivateBullet()
     {

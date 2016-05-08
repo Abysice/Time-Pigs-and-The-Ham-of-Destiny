@@ -65,31 +65,9 @@ public class EnemyManager : MonoBehaviour {
 	
 	public void SpawnEnemy(int type, Vector3 pos, string wave_num)
 	{
-		switch(type)
-		{
-		case 1: //v-type, move horizontally right to left across the screen
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().R2L, pos, Managers.GetInstance().GetGameProperties().R2L.transform.rotation);
-			break;
-		case 2: //v-type, move horizontally left to right across the screen
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().L2R, pos,Managers.GetInstance().GetGameProperties().L2R.transform.rotation);
-			break;
-		case 3: //o-type 1, move down the screen along the right diagonal
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().DRD, pos, Managers.GetInstance().GetGameProperties().DRD.transform.rotation);
-			break;
-		case 4: //o-type 1, move down the screen along the left diagonal
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().DLD, pos, Managers.GetInstance().GetGameProperties().DLD.transform.rotation);
-			break;
-		case 5: //o-type 1, move up the screen along the right diagonal
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().URD, pos, Managers.GetInstance().GetGameProperties().URD.transform.rotation);
-			break;
-		case 6: //o-type 1, move up the screen along the left diagonal
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().ULD, pos, Managers.GetInstance().GetGameProperties().ULD.transform.rotation);
-			break;
-		case 7: //m-type, move vertically down the screen
-			enemyObject = (GameObject)Instantiate(Managers.GetInstance().GetGameProperties().D, pos, Managers.GetInstance().GetGameProperties().D.transform.rotation);
-			break;
-		}
-		enemyObject.tag = wave_num;
+        m_cmanager.AddSpawnEnemyCommand(Managers.GetInstance().GetEnemyPoolManager().GetEnemyPool(type - 1), pos);
+
+		//enemyObject.tag = wave_num;
 	}
 	#endregion
 	

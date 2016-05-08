@@ -17,7 +17,7 @@ public class Managers : MonoBehaviour {
 	private GUIManager m_guimanager = null;
 	private EnemyManager m_enemymanager = null;
     private BulletPoolManager m_bulletPoolManager = null;
-
+    private EnemyPoolManager m_enemyPoolManager = null;
 	#endregion
 
 	#region Protected Variables
@@ -73,6 +73,11 @@ public class Managers : MonoBehaviour {
         return m_bulletPoolManager;
     }
 
+    public EnemyPoolManager GetEnemyPoolManager()
+    {
+        return m_enemyPoolManager;
+    }
+
 	#endregion
 
 	#region Unity Defaults
@@ -92,6 +97,7 @@ public class Managers : MonoBehaviour {
 		m_enemymanager = gameObject.AddComponent<EnemyManager>();
 		m_guimanager = gameObject.AddComponent<GUIManager>();
         m_bulletPoolManager = gameObject.AddComponent<BulletPoolManager>();
+        m_enemyPoolManager = gameObject.AddComponent<EnemyPoolManager>();
 		m_gamestatemanager.Init();
 		
 	}

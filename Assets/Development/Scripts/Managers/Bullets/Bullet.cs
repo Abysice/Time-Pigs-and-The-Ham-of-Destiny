@@ -46,6 +46,11 @@ public abstract class Bullet : MonoBehaviour
         }
     }
 
+    public void DestroyBulletCommand()
+    {
+        m_cmanager.AddDestroyBulletCommand(gameObject, transform.position);
+    }
+
     public void DestroyBullet()
     {
         m_TTLTimer = 100;
