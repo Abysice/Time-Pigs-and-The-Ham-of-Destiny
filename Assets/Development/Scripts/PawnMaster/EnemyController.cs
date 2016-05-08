@@ -79,6 +79,7 @@ public class EnemyController : MonoBehaviour {
 	
 	public virtual void OnTriggerEnter2D(Collider2D other)
 	{
+		Debug.Log("HERE");
 		if (other.gameObject.tag == "p_bullet")
 		{
             other.GetComponent<Bullet>().DestroyBulletCommand();
