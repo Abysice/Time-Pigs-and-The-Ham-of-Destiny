@@ -37,6 +37,7 @@ public class GameProperties : MonoBehaviour {
     public GameObject sineEnemyBulletPrefab;
 
 	public GameObject warningcanvas;
+    public GameObject bossHealth;
 
 	////////////////////////////
 	//LAZY FUNCS

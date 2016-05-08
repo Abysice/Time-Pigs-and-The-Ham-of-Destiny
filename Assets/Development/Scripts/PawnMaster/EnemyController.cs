@@ -108,12 +108,12 @@ public class EnemyController : MonoBehaviour {
         gameObject.SetActive(true);
     }
 
-    public void DestroyEnemy()
+    public virtual void DestroyEnemy()
     {
         m_enemyManager.ReturnEnemyToPool(gameObject);
     }
 
-    public void BringBackEnemy(Vector2 p_position)
+    public virtual void BringBackEnemy(Vector2 p_position)
     {
         m_enemyManager.ReactivateEnemy(gameObject);
         transform.position = p_position;

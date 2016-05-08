@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BossController : EnemyController
 {
@@ -15,6 +16,7 @@ public class BossController : EnemyController
     private int m_enemyState = 0;
     private int m_enemyMovement = 0;
     private float m_stateTimer = 100;
+    private Image m_healthBar;
     #endregion
 
     #region Accessors
@@ -98,7 +100,7 @@ public class BossController : EnemyController
     {
         if (other.gameObject.tag == "p_bullet")
         {
-            health--;
+            m_cmanager.AddBossTakeDamage(gameObject);
             other.GetComponent<Bullet>().DestroyBulletCommand();
 
             if (health < 0)
@@ -109,9 +111,35 @@ public class BossController : EnemyController
     #endregion
 
     #region Public Methods
+    public void IncreaseHealth()
+    {
+        health++;
+        m_healthBar.fillAmount = (health / 100f);
+    }
+
+    public void DecreaseHealth()
+    {
+        health--;
+        m_healthBar.fillAmount = (health / 100f);
+    }
+
     public override void ActivateEnemy()
     {
         gameObject.SetActive(true);
+        m_healthBar.transform.parent.gameObject.SetActive(true);
+    }
+
+    public override void DestroyEnemy()
+    {
+        m_enemyManager.ReturnEnemyToPool(gameObject);
+        m_healthBar.transform.parent.gameObject.SetActive(false);
+    }
+
+    public override void BringBackEnemy(Vector2 p_position)
+    {
+        m_enemyManager.ReactivateEnemy(gameObject);
+        transform.position = p_position;
+        m_healthBar.transform.parent.gameObject.SetActive(true);
     }
     #endregion
 

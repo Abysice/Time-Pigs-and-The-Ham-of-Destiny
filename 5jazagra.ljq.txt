@@ -1,0 +1,25 @@
+﻿stuff 
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   Assets/Development/Prefabs/Enemy_DLD_O.prefab
+#	modified:   Assets/Development/Prefabs/Enemy_DRD_O.prefab
+#	modified:   Assets/Development/Prefabs/Enemy_D_M.prefab
+#	modified:   Assets/Development/Prefabs/Enemy_L2R_V.prefab
+#	modified:   Assets/Development/Prefabs/Enemy_R2L_V.prefab
+#	modified:   Assets/Development/Prefabs/Enemy_ULD_O.prefab
+#	modified:   Assets/Development/Prefabs/Enemy_URD_O.prefab
+#	modified:   Assets/Development/Prefabs/GameManager.prefab
+#	modified:   Assets/Development/Prefabs/Main Camera.prefab
+#	new file:   Assets/Development/Prefabs/OKtBkpc.png
+#	new file:   Assets/Development/Prefabs/OKtBkpc.png.meta
+#	modified:   Assets/Development/Prefabs/Player_Bullet.prefab
+#	modified:   Assets/Development/Scenes/MAIN_MENU.unity
+#	modified:   Assets/Development/Scripts/Managers/GUIManager/GUIManager.cs
+#	modified:   Assets/Development/Scripts/PawnMaster/EnemyController.cs
+#	new file:   p4bfztgh.h5y.txt
+#
+
