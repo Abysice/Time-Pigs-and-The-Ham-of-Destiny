@@ -101,7 +101,7 @@ public class BossController : EnemyController
         if (other.gameObject.tag == "p_bullet")
         {
             m_cmanager.AddBossTakeDamage(gameObject);
-            other.GetComponent<Bullet>().DestroyBulletCommand();
+            //other.GetComponent<Bullet>().DestroyBulletCommand();
 
             if (health < 0)
 			{
@@ -129,6 +129,7 @@ public class BossController : EnemyController
 
     public override void ActivateEnemy()
     {
+        m_healthBar = Managers.GetInstance().GetGameProperties().bossHealth.GetComponent<Image>();
         gameObject.SetActive(true);
         m_healthBar.transform.parent.gameObject.SetActive(true);
     }
