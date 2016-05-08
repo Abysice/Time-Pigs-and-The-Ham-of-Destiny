@@ -62,32 +62,32 @@ public class PlayerController : MonoBehaviour {
 				return;
 			}
 
-			//PlaceHolder Code
-			Vector3 m_inputVec = Vector3.zero;
-			if (Input.GetKey(KeyCode.W))
-			{
-				m_inputVec += (Vector3.up * MOVE_SPEED);
-			}
-			else if (Input.GetKey(KeyCode.S))
-			{
-				m_inputVec += (Vector3.down * MOVE_SPEED);
-			}
-			if (Input.GetKey(KeyCode.D))
-			{
-				m_inputVec += (Vector3.right * MOVE_SPEED);
-			}
-			if (Input.GetKey(KeyCode.A))
-			{
-				m_inputVec += (Vector3.left * MOVE_SPEED);
-			}
+			////PlaceHolder Code
+			//Vector3 m_inputVec = Vector3.zero;
+			//if (Input.GetKey(KeyCode.W))
+			//{
+			//	m_inputVec += (Vector3.up * MOVE_SPEED);
+			//}
+			//else if (Input.GetKey(KeyCode.S))
+			//{
+			//	m_inputVec += (Vector3.down * MOVE_SPEED);
+			//}
+			//if (Input.GetKey(KeyCode.D))
+			//{
+			//	m_inputVec += (Vector3.right * MOVE_SPEED);
+			//}
+			//if (Input.GetKey(KeyCode.A))
+			//{
+			//	m_inputVec += (Vector3.left * MOVE_SPEED);
+			//}
 			
 
 			//CONTROLLER CONTROLS
-			//Vector3 m_inputVec = Vector3.zero;
-			//m_inputVec.x = m_inp.p1_LStickX;
-			//m_inputVec.y = m_inp.p1_LStickY;
+			Vector3 m_inputVec = Vector3.zero;
+			m_inputVec.x = m_inp.p1_LStickX;
+			m_inputVec.y = m_inp.p1_LStickY;
 
-			//m_inputVec *= MOVE_SPEED;
+			m_inputVec *= MOVE_SPEED;
 
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
 			if (hit)
@@ -120,8 +120,8 @@ public class PlayerController : MonoBehaviour {
 	
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.localPosition + m_inputVec);
 
-			//Shoot();
-			ShootKeyBoard();
+			Shoot();
+			//ShootKeyBoard();
 
 		
 		}

@@ -104,7 +104,11 @@ public class BossController : EnemyController
             other.GetComponent<Bullet>().DestroyBulletCommand();
 
             if (health < 0)
-                m_cmanager.AddDestroyEnemyCommand(gameObject, transform.position);
+			{
+				m_cmanager.AddDestroyEnemyCommand(gameObject, transform.position);
+				Managers.GetInstance().GetGameStateManager().ChangeGameState(Enums.GameStateNames.GS_01_MENU);
+			}
+                
         }
 
     }

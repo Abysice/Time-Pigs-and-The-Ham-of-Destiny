@@ -53,8 +53,8 @@ public class CommandManager : MonoBehaviour
 	//runs every frame
 	public void Update()
 	{
-		//ClampTimers();
-		ClampTimersKeyboard();
+		ClampTimers();
+		//ClampTimersKeyboard();
 		///////////////////////////////////////////////////////////////////
 
 		if (MAGIC_TIMER > 0.0f) // do nothing this frame
