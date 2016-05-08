@@ -52,12 +52,6 @@ public class PlayerController : MonoBehaviour {
 		{
 			if (m_isAlive == false)
 			{
-				m_explosion.GetComponent<Animator>().speed = 1;
-				if (m_cmanager.GetTimeState())
-				{
-					m_explosion.GetComponent<Animator>().Play("Reverse"); //play backwards
-				}
-					
 				return;
 			}
 			if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
@@ -132,15 +126,11 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnCollisionStay2D(Collision2D collisionInfo)
 	{
-		
 		if (m_isAlive == false || collisionInfo.gameObject.CompareTag("p_bullet")) //if I'm already dead
 			return;
 
-		Debug.Log("HIT");
-		
 		m_cmanager.AddPlayerDeathCommand(m_sprite, m_explosion);
 		
-
 	}
 
 

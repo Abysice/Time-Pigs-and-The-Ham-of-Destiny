@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
     private BulletPool m_sineBulletPool;
     private int bulletState = 0;
     private int m_bulletTimer = 0;
+    private EnemyPool m_enemyManager;
 	#endregion
 	
 	#region Accessors
@@ -67,9 +68,8 @@ public class EnemyController : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "p_bullet")
 		{
-			
-			Destroy (other.gameObject);
-			Destroy (this.gameObject, 0.01f);
+            other.GetComponent<Bullet>().DestroyBulletCommand();
+            m_cmanager.AddDestroyEnemyCommand(gameObject, transform.position);
 		}
 		
 	}
@@ -83,6 +83,27 @@ public class EnemyController : MonoBehaviour {
 		else
 			return false;
 	}
+
+    public void SetEnemyManager(EnemyPool p_enemyManager)
+    {
+        m_enemyManager = p_enemyManager;
+    }
+
+    public virtual void ActivateEnemy()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void DestroyEnemy()
+    {
+        m_enemyManager.ReturnEnemyToPool(gameObject);
+    }
+
+    public void BringBackEnemy(Vector2 p_position)
+    {
+        m_enemyManager.ReactivateEnemy(gameObject);
+        transform.position = p_position;
+    }
 	#endregion
 	
 	#region Protected Methods

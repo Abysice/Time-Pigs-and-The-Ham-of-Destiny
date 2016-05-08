@@ -137,6 +137,33 @@ public class CommandManager : MonoBehaviour
 			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
 		}
 	}
+    public void AddSpawnEnemyCommand(EnemyPool p_enemyPool, Vector2 m_position)
+    {
+        if (!m_isRewinding)
+        {
+            m_currentFrame.Value.AddFirst(new SpawnEnemy_Command(p_enemyPool, m_position));
+            m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+        }
+    }
+
+    public void AddDestroyEnemyCommand(GameObject p_actor, Vector2 m_position)
+    {
+        if (!m_isRewinding)
+        {
+            m_currentFrame.Value.AddFirst(new DestroyEnemy_Command(p_actor, p_actor.transform.position));
+            m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+        }
+    }
+
+	public void AddFinishedExplosion(Animator p_animation, GameObject p_actor)
+	{
+		if (!m_isRewinding)
+		{
+			m_currentFrame.Value.AddFirst(new ToggleAnimation(p_animation, p_actor));
+			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+		}
+	}
+
 
 	public void MoveBackAFrame()
 	{
