@@ -39,6 +39,17 @@ public class EnemyController : MonoBehaviour {
 			//fireBullets();
 		}
 	}
+	
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "p_bullet")
+		{
+			
+			Destroy (other.gameObject);
+			Destroy (this.gameObject, 0.01f);
+		}
+		
+	}
 	#endregion
 	
 	#region Public Methods
