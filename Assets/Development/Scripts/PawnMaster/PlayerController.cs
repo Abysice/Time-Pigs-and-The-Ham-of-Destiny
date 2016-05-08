@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour {
 
 	#region Public Variables
 	private GameObject m_camera;
-
+	public bool m_isAlive;
 	private const float MOVE_SPEED = 0.075f;
+	private GameObject m_explosion;
+
 	#endregion
 
 	#region Protected Variables
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	private CommandManager m_cmanager;
     private BulletPool m_bulletPool;
 	private float m_moveTimer;
+	private SpriteRenderer m_sprite;
 	#endregion
 
 	#region Accessors
@@ -34,6 +37,10 @@ public class PlayerController : MonoBehaviour {
 		m_cmanager = Managers.GetInstance().GetCommandManager();
         m_bulletPool = Managers.GetInstance().GetBulletPoolManager().GetBulletPool(20, Managers.GetInstance().GetGameProperties().playerBulletPrefab);
 		m_moveTimer = m_cmanager.GetTimer();
+		m_isAlive = true;
+		m_explosion = transform.GetChild(0).gameObject;
+		m_sprite = GetComponent<SpriteRenderer>();
+
 	}
 	//runs every frame
 	public void Update()
@@ -43,6 +50,16 @@ public class PlayerController : MonoBehaviour {
 
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
+			if (m_isAlive == false)
+			{
+				m_explosion.GetComponent<Animator>().speed = 1;
+				if (m_cmanager.GetTimeState())
+				{
+					m_explosion.GetComponent<Animator>().Play("Reverse"); //play backwards
+				}
+					
+				return;
+			}
 			if (m_cmanager.GetTimer() > 0.0f) // do nothing this frame
 			{
 				return;
@@ -108,8 +125,25 @@ public class PlayerController : MonoBehaviour {
 
 			//Shoot();
 			ShootKeyBoard();
+
+		
 		}
 	}
+
+	public void OnCollisionStay2D(Collision2D collisionInfo)
+	{
+		
+		if (m_isAlive == false || collisionInfo.gameObject.CompareTag("p_bullet")) //if I'm already dead
+			return;
+
+		Debug.Log("HIT");
+		
+		m_cmanager.AddPlayerDeathCommand(m_sprite, m_explosion);
+		
+
+	}
+
+
 	#endregion
 
 	#region Public Methods

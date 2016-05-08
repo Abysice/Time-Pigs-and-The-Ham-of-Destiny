@@ -129,6 +129,14 @@ public class CommandManager : MonoBehaviour
         }
     }
 
+	public void AddPlayerDeathCommand(SpriteRenderer p_sprite, GameObject p_explosion)
+	{
+		if (!m_isRewinding)
+		{
+			m_currentFrame.Value.AddFirst(new DisableComponentCommand(p_sprite, p_explosion));
+			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+		}
+	}
 
 	public void MoveBackAFrame()
 	{
