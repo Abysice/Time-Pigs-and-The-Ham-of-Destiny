@@ -170,7 +170,8 @@ public class CommandManager : MonoBehaviour
 	{
 		foreach (CommandBase com in m_currentFrame.Value)
 		{
-			com.Execute();
+			if (com is Move_Command)
+				com.Execute();
 		}
 	}
 
@@ -178,7 +179,8 @@ public class CommandManager : MonoBehaviour
 	{
 		foreach (CommandBase com in m_currentFrame.Value)
 		{
-			com.Undo();
+			if (com is Move_Command)
+				com.Undo();
 		}
 	}
 
