@@ -1,0 +1,363 @@
+fileFormatVersion: 2
+guid: 3eb8bdd5d54918b44961a89626acc8ac
+timeCreated: 1462663517
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: evil pig sheet_0
+    21300002: evil pig sheet_1
+    21300004: evil pig sheet_2
+    21300006: evil pig sheet_3
+    21300008: evil pig sheet_4
+    21300010: evil pig sheet_5
+    21300012: evil pig sheet_6
+    21300014: evil pig sheet_7
+    21300016: evil pig sheet_8
+    21300018: evil pig sheet_9
+    21300020: evil pig sheet_10
+    21300022: evil pig sheet_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 50
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: evil pig sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 120, y: 13}
+        - {x: 95, y: 89}
+        - {x: -120, y: 89}
+        - {x: -120, y: -48}
+        - {x: -37, y: -106}
+        - {x: 40, y: -106}
+        - {x: 73, y: -77}
+        - {x: 74, y: -66}
+        - {x: 120, y: -31}
+    - name: evil pig sheet_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 120, y: 2}
+        - {x: 101, y: 74}
+        - {x: 91, y: 89}
+        - {x: -120, y: 89}
+        - {x: -120, y: -61}
+        - {x: -62, y: -106}
+        - {x: 50, y: -106}
+        - {x: 68, y: -83}
+        - {x: 75, y: -72}
+        - {x: 119, y: -24}
+        - {x: 120, y: -22}
+    - name: evil pig sheet_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 98, y: 75}
+        - {x: 90, y: 72}
+        - {x: 10, y: 87}
+        - {x: -7, y: 87}
+        - {x: -20, y: 67}
+        - {x: -25, y: 37}
+        - {x: -94, y: 75}
+        - {x: -101, y: 72}
+        - {x: -120, y: 33}
+        - {x: -120, y: -60}
+        - {x: -59, y: -105}
+        - {x: 56, y: -105}
+        - {x: 69, y: -96}
+        - {x: 120, y: -24}
+        - {x: 120, y: -11}
+        - {x: 102, y: 71}
+    - name: evil pig sheet_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -105, y: 85}
+        - {x: -102, y: 73}
+        - {x: -120, y: -13}
+        - {x: -120, y: -29}
+        - {x: -107, y: -105}
+        - {x: 115, y: -105}
+        - {x: 120, y: -82}
+        - {x: 120, y: 85}
+    - name: evil pig sheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 119, y: 78}
+        - {x: 96, y: 73}
+        - {x: 94, y: 71}
+        - {x: 94, y: 64}
+        - {x: 71, y: 83}
+        - {x: -121, y: 83}
+        - {x: -121, y: -23}
+        - {x: -71, y: -84}
+        - {x: -58, y: -80}
+        - {x: -54, y: -72}
+        - {x: -5, y: -104}
+        - {x: 14, y: -104}
+        - {x: 80, y: -75}
+        - {x: 120, y: -50}
+        - {x: 120, y: 72}
+    - name: evil pig sheet_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 102, y: 75}
+        - {x: 92, y: 81}
+        - {x: -85, y: 81}
+        - {x: -110, y: 71}
+        - {x: -121, y: -9}
+        - {x: -121, y: -24}
+        - {x: -79, y: -104}
+        - {x: 30, y: -104}
+        - {x: 59, y: -99}
+        - {x: 78, y: -78}
+        - {x: 121, y: -22}
+        - {x: 121, y: 14}
+    - name: evil pig sheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 56, y: -81}
+        - {x: 121, y: -89}
+        - {x: 121, y: 79}
+        - {x: 101, y: 79}
+        - {x: 96, y: 73}
+        - {x: 95, y: 70}
+        - {x: 95, y: 68}
+        - {x: 16, y: 79}
+        - {x: -6, y: 79}
+        - {x: -14, y: 67}
+        - {x: -17, y: 47}
+        - {x: -93, y: 71}
+        - {x: -102, y: 73}
+        - {x: -104, y: 65}
+        - {x: -119, y: -2}
+        - {x: -121, y: -11}
+        - {x: -121, y: -24}
+        - {x: -66, y: -95}
+        - {x: -55, y: -77}
+        - {x: -54, y: -66}
+        - {x: -7, y: -104}
+        - {x: 2, y: -104}
+        - {x: 23, y: -87}
+        - {x: 46, y: -58}
+        - {x: 45, y: -55}
+        - {x: 53, y: -57}
+    - name: evil pig sheet_7
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -121, y: 81}
+        - {x: -121, y: -24}
+        - {x: -79, y: -104}
+        - {x: 30, y: -104}
+        - {x: 59, y: -99}
+        - {x: 86, y: -104}
+        - {x: 116, y: -104}
+        - {x: 121, y: -70}
+        - {x: 121, y: 81}
+    - name: evil pig sheet_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 119, y: 78}
+        - {x: 96, y: 73}
+        - {x: 94, y: 71}
+        - {x: 94, y: 64}
+        - {x: 17, y: 83}
+        - {x: -8, y: 83}
+        - {x: -21, y: 55}
+        - {x: -96, y: 73}
+        - {x: -100, y: 73}
+        - {x: -104, y: 70}
+        - {x: -121, y: -8}
+        - {x: -121, y: -23}
+        - {x: -69, y: -79}
+        - {x: -58, y: -80}
+        - {x: -54, y: -72}
+        - {x: -5, y: -104}
+        - {x: 14, y: -104}
+        - {x: 80, y: -75}
+        - {x: 120, y: -50}
+        - {x: 120, y: 72}
+    - name: evil pig sheet_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48, y: 85}
+        - {x: -106, y: 77}
+        - {x: -120, y: -11}
+        - {x: -120, y: -24}
+        - {x: -86, y: -100}
+        - {x: -56, y: -105}
+        - {x: 120, y: -105}
+        - {x: 120, y: 85}
+    - name: evil pig sheet_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 98, y: 75}
+        - {x: 90, y: 72}
+        - {x: 43, y: 87}
+        - {x: -67, y: 87}
+        - {x: -114, y: 82}
+        - {x: -120, y: 64}
+        - {x: -120, y: -59}
+        - {x: -57, y: -105}
+        - {x: 55, y: -105}
+        - {x: 69, y: -96}
+        - {x: 120, y: -24}
+        - {x: 120, y: -11}
+        - {x: 102, y: 71}
+    - name: evil pig sheet_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 120, y: 2}
+        - {x: 101, y: 74}
+        - {x: 92, y: 79}
+        - {x: 53, y: 89}
+        - {x: -50, y: 89}
+        - {x: -107, y: 79}
+        - {x: -120, y: -3}
+        - {x: -120, y: -23}
+        - {x: -72, y: -98}
+        - {x: -51, y: -106}
+        - {x: 29, y: -106}
+        - {x: 68, y: -83}
+        - {x: 75, y: -72}
+        - {x: 119, y: -24}
+        - {x: 120, y: -22}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
