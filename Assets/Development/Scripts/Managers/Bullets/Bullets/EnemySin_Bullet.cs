@@ -21,7 +21,7 @@ public class EnemySin_Bullet : Bullet {
     {
         base.MoveBullet();
 
-        m_cmanager.AddMoveCommand(gameObject, new Vector2(transform.position.x, transform.position.y) + m_bulletDirection + new Vector2(1f, 0f) * Mathf.Sin(m_TTLTimer * 0.2f) * 0.25f);
+        m_cmanager.AddMoveCommand(gameObject, new Vector2(transform.position.x, transform.position.y) + m_bulletDirection + new Vector2(1f, 0f) * Mathf.Sin(m_TTLTimer * 0.1f) * 0.05f);
     }
 
     void OnTriggerEnter(Collider p_collider)

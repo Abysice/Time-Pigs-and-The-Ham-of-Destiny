@@ -130,8 +130,8 @@ public class EnemyController : MonoBehaviour {
                 bulletState = 0;
             }
 			break;
-        case 4: //m-type, fire five streams of bullets, two on both downward diagonals and three downward
-
+        case 4: //fire sine pattern of bullets
+            m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, transform.position, new Vector2(0, -0.1f));
             break;
 		}
 	}
