@@ -30,6 +30,7 @@ public class GameProperties : MonoBehaviour {
 	public GameObject D;
 	public GameObject L2R;
 	public GameObject R2L;
+    public GameObject BaconBottom;
 	
     public GameObject playerBulletPrefab;
     public GameObject enemyBulletPrefab;

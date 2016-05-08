@@ -29,6 +29,7 @@ public class EnemyPoolManager : MonoBehaviour {
         SpawnEnemyPool(5, Managers.GetInstance().GetGameProperties().URD);
         SpawnEnemyPool(5, Managers.GetInstance().GetGameProperties().ULD);
         SpawnEnemyPool(5, Managers.GetInstance().GetGameProperties().D);
+        SpawnEnemyPool(1, Managers.GetInstance().GetGameProperties().BaconBottom);
     }
 
     // Use this for initialization

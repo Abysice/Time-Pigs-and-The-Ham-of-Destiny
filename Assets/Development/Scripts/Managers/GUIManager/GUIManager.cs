@@ -50,11 +50,9 @@ public class GUIManager : MonoBehaviour {
 	//Spawn the ingame GUI
 	public void LoadGameGUI()
 	{
-		m_canvas.SetActive(true);
 	}
 	public void UnLoadGameGUI()
 	{
-		m_canvas.SetActive(false);
 	}
 
 
