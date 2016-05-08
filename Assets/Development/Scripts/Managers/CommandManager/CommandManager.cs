@@ -164,6 +164,15 @@ public class CommandManager : MonoBehaviour
 		}
 	}
 
+    public void AddBossTakeDamage(GameObject p_actor)
+    {
+        if (!m_isRewinding)
+        {
+            m_currentFrame.Value.AddFirst(new BossTakeDamage_Command(p_actor));
+            m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+        }
+    }
+
 
 	public void MoveBackAFrame()
 	{

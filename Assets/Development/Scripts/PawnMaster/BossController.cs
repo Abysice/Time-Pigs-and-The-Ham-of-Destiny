@@ -98,7 +98,7 @@ public class BossController : EnemyController
     {
         if (other.gameObject.tag == "p_bullet")
         {
-            health--;
+            m_cmanager.AddBossTakeDamage(gameObject);
             other.GetComponent<Bullet>().DestroyBulletCommand();
 
             if (health < 0)
