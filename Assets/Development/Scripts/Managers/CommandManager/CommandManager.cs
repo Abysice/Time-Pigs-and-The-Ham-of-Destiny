@@ -101,7 +101,7 @@ public class CommandManager : MonoBehaviour
 
 	#region Public Methods
 	//add a command to the current frame
-	public void AddMoveCommand(GameObject p_actor, Vector2 m_destination)
+	public void AddMoveCommand(GameObject p_actor, Vector3 m_destination)
 	{
 		if (!m_isRewinding)
 		{
