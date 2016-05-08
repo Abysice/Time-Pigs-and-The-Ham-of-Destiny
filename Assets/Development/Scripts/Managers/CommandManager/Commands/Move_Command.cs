@@ -7,13 +7,13 @@ using System.Collections;
 
 public class Move_Command : CommandBase {
 
-	private Vector2 m_startPos;
-	private Vector2 m_endPos;
+	private Vector3 m_startPos;
+	private Vector3 m_endPos;
 	public Move_Command()
 	{
 	}
 
-	public Move_Command(GameObject p_actor, Vector2 p_startpos, Vector2 p_endpos)
+	public Move_Command(GameObject p_actor, Vector3 p_startpos, Vector3 p_endpos)
 	{
 		m_actor = p_actor;
 		m_startPos = p_startpos;

@@ -106,8 +106,8 @@ public class PlayerController : MonoBehaviour {
 	
 			m_cmanager.AddMoveCommand(gameObject, gameObject.transform.localPosition + m_inputVec);
 
-			Shoot();
-			//ShootKeyBoard();
+			//Shoot();
+			ShootKeyBoard();
 		}
 	}
 	#endregion

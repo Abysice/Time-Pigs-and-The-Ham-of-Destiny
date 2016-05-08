@@ -27,7 +27,7 @@ public class SpawnController : MonoBehaviour {
 		
 		if (spawn)
 		{
-			m_enemymanager.SpawnEnemy(spawned_object_type, transform.position, gameObject.tag);
+			m_enemymanager.SpawnEnemy(spawned_object_type, new Vector2(transform.position.x, transform.position.y), gameObject.tag);
 			spawn = false;
 		}
 	}

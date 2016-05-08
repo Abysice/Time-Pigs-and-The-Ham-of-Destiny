@@ -47,7 +47,6 @@ public class EnemyManager : MonoBehaviour {
 			if (m_TTWTimer > 0)
 			{
 				m_TTWTimer--;
-				Debug.Log (m_TTWTimer);
 				
 				if (m_TTWTimer <= 0)
 				{
@@ -60,7 +59,6 @@ public class EnemyManager : MonoBehaviour {
 		{
 			m_TTWTimer++;
 		}
-		Debug.Log (m_TTWTimer);
 	}
 	
 	public void SpawnEnemy(int type, Vector3 pos, string wave_num)
