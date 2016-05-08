@@ -15,12 +15,12 @@ public class EnemyController : MonoBehaviour {
 	#endregion
 	
 	#region Private Variable
-	private CommandManager m_cmanager;
-    private BulletPool m_bulletPool;
-    private BulletPool m_sineBulletPool;
-    private int bulletState = 0;
-    private int m_bulletTimer = 0;
-    private EnemyPool m_enemyManager;
+	protected CommandManager m_cmanager;
+    protected BulletPool m_bulletPool;
+    protected BulletPool m_sineBulletPool;
+    protected int bulletState = 0;
+    protected int m_bulletTimer = 0;
+    protected EnemyPool m_enemyManager;
     protected float m_TTLTimer = 400;
 	#endregion
 	

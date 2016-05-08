@@ -4,27 +4,17 @@ using System.Collections;
 public class BossController : EnemyController
 {
     #region Public Variables
-    public bool firing = false; //whether or not the enemy is firing bullets
-    public float move_speed = 0.05f;
-    public int move_type = 5;
-    public int lives = 1;
     public int health = 100;
-    public int bullet_fire_rate = 20;
     #endregion
 
     #region Protected Variables
     #endregion
 
     #region Private Variable
-    private CommandManager m_cmanager;
-    private BulletPool m_bulletPool;
-    private BulletPool m_sineBulletPool;
-    private int bulletState = 0;
-    private int m_bulletTimer = 0;
     private int m_bulletpattern = 0;
     private int m_enemyState = 0;
-    private EnemyPool m_enemyManager;
-    private float m_stateTimer = 0;
+    private int m_enemyMovement = 0;
+    private float m_stateTimer = 100;
     #endregion
 
     #region Accessors
@@ -58,12 +48,13 @@ public class BossController : EnemyController
                     fireBullets();
                 }
 
-                m_stateTimer++;
+                m_stateTimer--;
 
-                if (m_stateTimer == 100)
+                if (m_stateTimer == 0)
                 {
-                    m_stateTimer = 0;
-                    //ChangeStates();
+                    m_enemyState++;
+                    ChangeStates();
+                    ChangeBulletPattern();
                 }
             }
             else
@@ -73,9 +64,31 @@ public class BossController : EnemyController
                     m_bulletTimer--;
                 }
 
-                if (m_stateTimer > 0)
+                m_stateTimer++;
+
+                if (m_enemyState == 1)
                 {
-                    m_stateTimer--;
+                    if (m_stateTimer == 50)
+                    {
+                        m_enemyState--;
+                        ChangeReverseStates();
+                        ChangeBulletPattern();
+                        m_stateTimer = 0;
+                    }
+                        
+                }
+                else 
+                {
+                    if (m_stateTimer == 100)
+                    {
+                        if (m_enemyState != 0)
+                        {
+                            m_enemyState--;
+                            ChangeReverseStates();
+                            ChangeBulletPattern();
+                            m_stateTimer = 0;
+                        }
+                    }
                 }
             }
         }
@@ -111,44 +124,75 @@ public class BossController : EnemyController
     /// </summary>
     public override void fireBullets()
     {
+        Debug.Log("Fire Bullets");
         switch (m_bulletpattern)
         {
+            case 0:
+                break;
             case 1: //v-type, fire three streams of bullets, two on both downward diagonals and one straight down
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, -0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, -0.1f));
+
+                 m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, -0.1f));
+
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0.1f));
+
+                 m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0.1f));
                 break;
             case 2: //o-type, fire eight streams of bullets, four in each cardinal direction and four in each diagonal
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, 0));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, 0));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, 0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, 0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, -0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, 0.1f));
-                m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, -0.1f));
+
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_bulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, -0.1f));
                 break;
             case 3: //m-type, fire five streams of bullets, two on both downward diagonals and three downward
-                if (bulletState == 0)
-                {
-                    m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
-                    m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(-0.1f, -0.1f));
-                    m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0.1f, -0.1f));
-                    bulletState = 1;
-                }
-                else if (bulletState == 1)
-                {
-                    m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
-                    bulletState = 2;
-                }
-                else if (bulletState == 2)
-                {
-                    m_cmanager.AddSpawnBulletCommand(m_bulletPool, transform.position, new Vector2(0, -0.1f));
-                    bulletState = 0;
-                }
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, -0.1f));
+
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, -0.1f));
                 break;
             case 4: //fire sine pattern of bullets
-                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, transform.position, new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, -0.1f));
+
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0.1f, 0f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(-0.1f, 0f));
+
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x + 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
+                m_cmanager.AddSpawnBulletCommand(m_sineBulletPool, new Vector3(transform.position.x - 0.7f, transform.position.y - 1.1f, transform.position.z), new Vector2(0, 0.1f));
                 break;
             case 5:
                 if (bulletState < 40)
@@ -168,13 +212,73 @@ public class BossController : EnemyController
         }
     }
 
+    private void ChangeStates()
+    {
+        if (m_enemyState == 1)
+        {
+            m_stateTimer = 50;
+            m_enemyMovement = 1;
+        }
+        else if (m_enemyState % 2 == 0)
+        {
+            m_stateTimer = 100;
+            m_enemyMovement = 2;
+        }
+        else
+        {
+            m_stateTimer = 100;
+            m_enemyMovement = 1;
+        }
+    }
+
+    private void ChangeReverseStates()
+    {
+        if (m_enemyState == 0)
+        {
+            m_enemyMovement = 0;
+        }
+        else if (m_enemyState % 2 == 0)
+        {
+            m_enemyMovement = 2;
+        }
+        else
+        {
+            m_enemyMovement = 1;
+        }
+    }
+
+    private void ChangeBulletPattern()
+    {
+        if (m_enemyState <= 1)
+        {
+            m_bulletpattern = 0;
+        }
+        else if (m_enemyState % 4 == 0)
+        {
+            m_bulletpattern = 1;
+        }
+        else if (m_enemyState % 3 == 0)
+        {
+            m_bulletpattern = 2;
+        }
+        else if (m_enemyState % 2 == 0)
+        {
+            m_bulletpattern = 3;
+        }
+        else
+        {
+            m_bulletpattern = 4;
+        }
+    }
+
     /// <summary>
     /// Moves the enemy along the screen according to its movement type, which is tied to its enemy type.
     /// </summary>
     public override void moveCycle()
     {
         Vector3 move = Vector3.zero;
-        switch (m_enemyState)
+        move += Vector3.up * 0.03f;
+        switch (m_enemyMovement)
         {
             case 0: //first, the boss will move down
                 move += Vector3.down * move_speed;
