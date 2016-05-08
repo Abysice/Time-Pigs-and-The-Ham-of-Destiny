@@ -1,0 +1,32 @@
+﻿Merge branch 'master' of https://github.com/Abysice/PhoneGame
+
+# Conflicts:
+#	Assets/Development/Prefabs/GameManager.prefab
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 2 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	renamed:    Assets/Development/Prefabs/BaconBottom.prefab -> Assets/Development/Prefabs/BaronVonBaconBottom.prefab
+#	renamed:    Assets/Development/Prefabs/BaconBottom.prefab.meta -> Assets/Development/Prefabs/BaronVonBaconBottom.prefab.meta
+#	modified:   Assets/Development/Prefabs/GameManager.prefab
+#	modified:   Assets/Development/Scenes/LEVEL_SCENE.unity
+#	modified:   Assets/Development/Scripts/Managers/EnemyPools/EnemyPoolManager.cs
+#	modified:   Assets/Development/Scripts/Managers/GUIManager/GUIManager.cs
+#	modified:   Assets/Development/Scripts/Managers/GameProperties.cs
+#	modified:   Assets/Development/Scripts/PawnMaster/BossController.cs
+#	modified:   Assets/Development/Scripts/PawnMaster/EnemyController.cs
+#
+

@@ -38,7 +38,7 @@ public class GUIManager : MonoBehaviour {
 	{
 		if (Managers.GetInstance().GetGameStateManager().CurrentState == Enums.GameStateNames.GS_03_INPLAY)
 		{
-			if (Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead)
+			if (Managers.GetInstance().GetLoadManager().playerObject.GetComponent<PlayerController>().m_stillDead && !Managers.GetInstance().GetCommandManager().GetTimeState())
 				m_canvas.SetActive(true);
 			else
 				m_canvas.SetActive(false);
