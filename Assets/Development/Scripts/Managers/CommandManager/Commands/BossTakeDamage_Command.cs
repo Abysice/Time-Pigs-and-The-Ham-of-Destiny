@@ -6,6 +6,7 @@ public class BossTakeDamage_Command : CommandBase
 
     public BossTakeDamage_Command()
     {
+
     }
 
     public BossTakeDamage_Command(GameObject p_actor)
