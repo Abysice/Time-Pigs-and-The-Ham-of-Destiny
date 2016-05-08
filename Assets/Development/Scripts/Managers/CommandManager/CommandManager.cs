@@ -129,6 +129,14 @@ public class CommandManager : MonoBehaviour
         }
     }
 
+	public void AddPlayerDeathCommand(SpriteRenderer p_sprite, GameObject p_explosion)
+	{
+		if (!m_isRewinding)
+		{
+			m_currentFrame.Value.AddFirst(new DisableComponentCommand(p_sprite, p_explosion));
+			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+		}
+	}
     public void AddSpawnEnemyCommand(EnemyPool p_enemyPool, Vector2 m_position)
     {
         if (!m_isRewinding)
@@ -146,6 +154,15 @@ public class CommandManager : MonoBehaviour
             m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
         }
     }
+
+	public void AddFinishedExplosion(Animator p_animation, GameObject p_actor)
+	{
+		if (!m_isRewinding)
+		{
+			m_currentFrame.Value.AddFirst(new ToggleAnimation(p_animation, p_actor));
+			m_currentFrame.Value.First.Value.Execute(); //execute the command you just added
+		}
+	}
 
 
 	public void MoveBackAFrame()
